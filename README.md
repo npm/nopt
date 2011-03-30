@@ -18,6 +18,7 @@ nice option parser.
 
 ## USAGE
 
+    // my-program.js
     var nopt = require("nopt")
       , Stream = require("stream").Stream
       , path = require("path")
@@ -39,6 +40,7 @@ nice option parser.
                  // arg list defaults to process.argv
                  // slice defaults to 2
       , parsed = nopt(knownOpts, shortHands, process.argv, 2)
+    console.log(parsed)
 
 This would give you support for any of the following:
 
