@@ -17,7 +17,9 @@ var nopt = require("../lib/nopt")
                  , "b7" : ["--bar", "7"]
                  , "m" : ["--bloo", "medium"]
                  , "p" : ["--pick"]
-                 , "f" : ["--flag"]
+                 , "f" : ["--flag", "true"]
+                 , "g" : ["--flag"]
+                 , "s" : "--flag"
                  }
              // everything is optional.
              // knownOpts and shorthands default to {}
