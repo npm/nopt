@@ -5,4 +5,7 @@
 , "main" : "lib/nopt.js"
 , "scripts" : { "test" : "node lib/nopt.js" }
 , "repository" : "http://github.com/isaacs/nopt"
+, "license" :
+  { "type" : "MIT"
+  , "url" : "https://github.com/isaacs/nopt/raw/master/LICENSE" }
 , "dependencies" : { "abbrev" : "1" }}
