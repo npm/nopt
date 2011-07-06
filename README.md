@@ -28,6 +28,7 @@ nice option parser.
                     , "bloo" : [ "big", "medium", "small" ]
                     , "flag" : Boolean
                     , "pick" : Boolean
+                    , "many" : [String, Array]
                     }
       , shortHands = { "foofoo" : ["--foo", "Mr. Foo"]
                      , "b7" : ["--bar", "7"]
@@ -44,32 +45,44 @@ nice option parser.
 
 This would give you support for any of the following:
 
-    $ node my-program.js --foo "blerp" --no-flag
-    { "foo" : "blerp", "flag" : false }
+```bash
+$ node my-program.js --foo "blerp" --no-flag
+{ "foo" : "blerp", "flag" : false }
 
-    $ node my-program.js ---bar 7 --foo "Mr. Hand" --flag
-    { bar: 7, foo: "Mr. Hand", flag: true }
+$ node my-program.js ---bar 7 --foo "Mr. Hand" --flag
+{ bar: 7, foo: "Mr. Hand", flag: true }
 
-    $ node my-program.js --foo "blerp" -f -----p
-    { foo: "blerp", flag: true, pick: true }
+$ node my-program.js --foo "blerp" -f -----p
+{ foo: "blerp", flag: true, pick: true }
 
-    $ node my-program.js -fp --foofoo
-    { foo: "Mr. Foo", flag: true, pick: true }
+$ node my-program.js -fp --foofoo
+{ foo: "Mr. Foo", flag: true, pick: true }
 
-    $ node my-program.js --foofoo -- -fp  # -- stops the flag parsing.
-    { foo: "Mr. Foo", argv: { remain: ["-fp"] } }
+$ node my-program.js --foofoo -- -fp  # -- stops the flag parsing.
+{ foo: "Mr. Foo", argv: { remain: ["-fp"] } }
 
-    $ node my-program.js --blatzk 1000 -fp # unknown opts are ok.
-    { blatzk: 1000, flag: true, pick: true }
+$ node my-program.js --blatzk 1000 -fp # unknown opts are ok.
+{ blatzk: 1000, flag: true, pick: true }
 
-    $ node my-program.js --blatzk true -fp # but they need a value
-    { blatzk: true, flag: true, pick: true }
+$ node my-program.js --blatzk true -fp # but they need a value
+{ blatzk: true, flag: true, pick: true }
 
-    $ node my-program.js --no-blatzk -fp # unless they start with "no-"
-    { blatzk: false, flag: true, pick: true }
+$ node my-program.js --no-blatzk -fp # unless they start with "no-"
+{ blatzk: false, flag: true, pick: true }
 
-    $ node my-program.js --baz b/a/z # known paths are resolved.
-    { baz: "/Users/isaacs/b/a/z" }
+$ node my-program.js --baz b/a/z # known paths are resolved.
+{ baz: "/Users/isaacs/b/a/z" }
+
+# if Array is one of the types, then it can take many
+# values, and will always be an array.  The other types provided
+# specify what types are allowed in the list.
+
+$ node my-program.js --many 1 --many null --many foo
+{ many: ["1", "null", "foo"] }
+
+$ node my-program.js --many foo
+{ many: ["foo"] }
+```
 
 Read the tests at the bottom of `lib/nopt.js` for more examples of
 what this puppy can do.
@@ -91,6 +104,9 @@ The following types are supported, and defined on `nopt.typeDefs`
 * Stream: An object matching the "Stream" class in node.  Valuable
   for use when validating programmatically.  (npm uses this to let you
   supply any WriteStream on the `outfd` and `logfd` config options.)
+* Array: If `Array` is specified as one of the types, then the value
+  will be parsed as a list of options.  This means that multiple values
+  can be specified, and that the value will always be an array.
 
 If a type is an array of values not on this list, then those are
 considered valid values.  For instance, in the example above, the
@@ -131,14 +147,18 @@ suppressed.
 
 Yes, they are supported.  If you define options like this:
 
-    { "foolhardyelephants" : Boolean
-    , "pileofmonkeys" : Boolean }
+```javascript
+{ "foolhardyelephants" : Boolean
+, "pileofmonkeys" : Boolean }
+```
 
 Then this will work:
 
-    node program.js --foolhar --pil
-    node program.js --no-f --pileofmon
-    # etc.
+```bash
+node program.js --foolhar --pil
+node program.js --no-f --pileofmon
+# etc.
+```
 
 ## Shorthands
 
@@ -149,16 +169,20 @@ If multiple one-character shorthands are all combined, and the
 combination does not unambiguously match any other option or shorthand,
 then they will be broken up into their constituent parts.  For example:
 
-    { "s" : ["--loglevel", "silent"]
-    , "g" : "--global"
-    , "f" : "--force"
-    , "p" : "--parseable"
-    , "l" : "--long"
-    }
+```json
+{ "s" : ["--loglevel", "silent"]
+, "g" : "--global"
+, "f" : "--force"
+, "p" : "--parseable"
+, "l" : "--long"
+}
+```
 
-    npm ls -sgflp
-    # just like doing this:
-    npm ls --loglevel silent --global --force --long --parseable
+```bash
+npm ls -sgflp
+# just like doing this:
+npm ls --loglevel silent --global --force --long --parseable
+```
 
 ## The Rest of the args
 
