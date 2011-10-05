@@ -93,8 +93,10 @@ The following types are supported, and defined on `nopt.typeDefs`
 
 * String: A normal string.  No parsing is done.
 * path: A file system path.  Gets resolved against cwd if not absolute.
-* Number: Must be numeric.
 * url: A url.  If it doesn't parse, it isn't accepted.
+* Number: Must be numeric.
+* Date: Must parse as a date. If it does, and `Date` is one of the options,
+  then it will return a Date object, not a string.
 * Boolean: Must be either `true` or `false`.  If an option is a boolean,
   then it does not need a value, and its presence will imply `true` as
   the value.  To negate boolean flags, do `--no-whatever` or `--whatever
