@@ -12,6 +12,10 @@ var nopt = require("../lib/nopt")
                 , "bloo" : [ "big", "medium", "small" ]
                 , "flag" : Boolean
                 , "pick" : Boolean
+                , "browser": String
+                , "t": [String, Array]
+                , "aoa": Array
+                , "config": nopt.configFile
                 }
   , shortHands = { "foofoo" : ["--foo", "Mr. Foo"]
                  , "b7" : ["--bar", "7"]

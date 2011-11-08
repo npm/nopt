@@ -1,0 +1,4 @@
+{ "browser": "firefox",
+  "t": ["foo", "is", "bar"],
+  "aoa": [1, 2, "quux"]
+}
