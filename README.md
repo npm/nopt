@@ -214,12 +214,12 @@ the list.
 An option parser is great, but it's even better if it generate the
 showUSage message for you.
 
-EVerything is done by calling `nopt.usage`
+Everything is done by calling `nopt.usage`
 
     var nopt = require('nopt');
     nopt.usage(knownOpts, shortHands, description1, description2, ...)
 
-You could pass as many description object as you want. Take a look at the following example to understand how it could be used.
+You could pass as many description objects as you want. Take a look at the following example to understand how it could be used.
 
 
     #!/usr/bin/env node
