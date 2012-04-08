@@ -208,3 +208,69 @@ That's usually not very useful to you.  So they're sliced off by
 default.  If you want them, then you can pass in `0` as the last
 argument, or any other number that you'd like to slice off the start of
 the list.
+
+## Show usage
+
+An option parser is great, but it's even better if it generate the
+showUSage message for you.
+
+EVerything is done by calling `nopt.usage`
+
+    var nopt = require('nopt');
+    nopt.usage(knownOpts, shortHands, description1, description2, ...)
+
+You could pass as many description object as you want. Take a look at the following example to understand how it could be used.
+
+
+    #!/usr/bin/env node
+
+    var nopt = require("../lib/nopt")
+      , Stream = require("stream").Stream
+      , path = require("path")
+      , knownOpts = { "foo" : [String, null]
+                    , "bar" : [Stream, Number]
+                    , "baz" : path
+                    , "bloo" : [ "big", "medium", "small" ]
+                    , "flag" : Boolean
+                    , "pick" : Boolean
+                    }
+      , shortHands = { "foofoo" : ["--foo", "Mr. Foo"]
+                     , "b7" : ["--bar", "7"]
+                     , "m" : ["--bloo", "medium"]
+                     , "p" : ["--pick"]
+                     , "f" : ["--flag", "true"]
+                     , "g" : ["--flag"]
+                     , "s" : "--flag"
+                     }
+      , description = { "foo" : "Something really foooooooo"
+                      , "bar" : "A bar thing"
+                      , "baz" : "More or less baz"
+                      , "flag" : "Flag it as well"
+                      , "pick" : "Or pick something"
+                      }
+      , defaults = { "foo" : null
+                   , "bar" : 42
+                   , "baz" : "/etc/passwd"
+                   , "bloo" : "small"
+                   , "pick" : false
+                   }
+                 // everything is optional.
+                 // knownOpts and shorthands default to {}
+                 // arg list defaults to process.argv
+                 // slice defaults to 2
+      , parsed = nopt(knownOpts, shortHands, process.argv, 2)
+      , usage = nopt.usage(knownOpts, shortHands, description, defaults)
+
+    console.log('Usage: ')
+    console.log(usage)
+
+The output is:
+
+    Usage:
+        --foo, -foofoo        Something really foooooooo    null           
+        --bar, -b7            A bar thing                   42             
+        --baz                 More or less baz              /etc/passwd    
+        --bloo, -m                                          small          
+        --flag, -f, -g, -s    Flag it as well                              
+        --pick, -p            Or pick something             false          
+
