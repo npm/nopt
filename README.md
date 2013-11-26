@@ -29,6 +29,7 @@ nice option parser.
                     , "flag" : Boolean
                     , "pick" : Boolean
                     , "many" : [String, Array]
+                    , "num" : Number
                     }
       , shortHands = { "foofoo" : ["--foo", "Mr. Foo"]
                      , "b7" : ["--bar", "7"]
@@ -40,7 +41,8 @@ nice option parser.
                  // knownOpts and shorthands default to {}
                  // arg list defaults to process.argv
                  // slice defaults to 2
-      , parsed = nopt(knownOpts, shortHands, process.argv, 2)
+                 // proto is optional
+      , parsed = nopt(knownOpts, shortHands, process.argv, 2, {num:1})
     console.log(parsed)
 
 This would give you support for any of the following:
@@ -208,3 +210,7 @@ That's usually not very useful to you.  So they're sliced off by
 default.  If you want them, then you can pass in `0` as the last
 argument, or any other number that you'd like to slice off the start of
 the list.
+
+## Prototype
+
+You can also pass options prototype as 5th argument. This is a cheap solution to handle default values.

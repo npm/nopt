@@ -12,6 +12,7 @@ var nopt = require("../lib/nopt")
                 , "bloo" : [ "big", "medium", "small" ]
                 , "flag" : Boolean
                 , "pick" : Boolean
+                , "num": Number
                 }
   , shortHands = { "foofoo" : ["--foo", "Mr. Foo"]
                  , "b7" : ["--bar", "7"]
@@ -25,6 +26,6 @@ var nopt = require("../lib/nopt")
              // knownOpts and shorthands default to {}
              // arg list defaults to process.argv
              // slice defaults to 2
-  , parsed = nopt(knownOpts, shortHands, process.argv, 2)
+  , parsed = nopt(knownOpts, shortHands, process.argv, 2, {num:1})
 
 console.log("parsed =\n"+ require("util").inspect(parsed))
