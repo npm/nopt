@@ -5,7 +5,7 @@
   "author": "Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me/)",
   "main": "lib/nopt.js",
   "scripts": {
-    "test": "node lib/nopt.js"
+    "test": "node lib/nopt.js && tap test/*"
   },
   "repository": "http://github.com/isaacs/nopt",
   "bin": "./bin/nopt.js",
@@ -15,5 +15,8 @@
   },
   "dependencies": {
     "abbrev": "1"
+  },
+  "devDependencies": {
+    "tap": "~0.4.8"
   }
 }
