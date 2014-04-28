@@ -1,6 +1,6 @@
 {
   "name": "nopt",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Option parsing for Node, supporting types, shorthands, etc. Used by npm.",
   "author": "Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me/)",
   "main": "lib/nopt.js",
