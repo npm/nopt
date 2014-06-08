@@ -28,7 +28,8 @@ nice option parser.
                     , "bloo" : [ "big", "medium", "small" ]
                     , "flag" : Boolean
                     , "pick" : Boolean
-                    , "many" : [String, Array]
+                    , "many1" : [String, Array]
+                    , "many2" : [path]
                     }
       , shortHands = { "foofoo" : ["--foo", "Mr. Foo"]
                      , "b7" : ["--bar", "7"]
@@ -77,11 +78,11 @@ $ node my-program.js --baz b/a/z # known paths are resolved.
 # values, and will always be an array.  The other types provided
 # specify what types are allowed in the list.
 
-$ node my-program.js --many 1 --many null --many foo
-{ many: ["1", "null", "foo"] }
+$ node my-program.js --many1 5 --many1 null --many1 foo
+{ many1: ["5", "null", "foo"] }
 
-$ node my-program.js --many foo
-{ many: ["foo"] }
+$ node my-program.js --many2 foo --many2 bar
+{ many2: ["/path/to/foo", "path/to/bar"] }
 ```
 
 Read the tests at the bottom of `lib/nopt.js` for more examples of
