@@ -137,8 +137,8 @@ config object and remove its invalid properties.
 
 ## Error Handling
 
-By default, nopt outputs a warning to standard error when invalid
-options are found.  You can change this behavior by assigning a method
+By default, nopt outputs a warning to standard error when invalid values for
+known options are found.  You can change this behavior by assigning a method
 to `nopt.invalidHandler`.  This method will be called with
 the offending `nopt.invalidHandler(key, val, types)`.
 
