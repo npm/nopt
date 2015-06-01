@@ -14,6 +14,6 @@
     "abbrev": "1"
   },
   "devDependencies": {
-    "tap": "~0.4.8"
+    "tap": "^1.2.0"
   }
 }
