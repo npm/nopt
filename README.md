@@ -5,8 +5,8 @@ The Wrong Way is to sit down and write an option parser.  We've all done
 that.
 
 The Right Way is to write some complex configurable program with so many
-options that you go half-insane just trying to manage them all, and put
-it off with duct-tape solutions until you see exactly to the core of the
+options that you go off just trying to manage them all, and defer it 
+with duct-tape solutions until you see exactly to the core of the
 problem, and finally snap and write an awesome option parser.
 
 If you want to write an option parser, don't write an option parser.
