@@ -110,6 +110,7 @@ test("other tests", function (t) {
       , viewer: path
       , _exit : Boolean
       , path: path
+      , url: url
       }
 
   ; [["-v", {version:true}, []]
@@ -228,6 +229,15 @@ test("other tests", function (t) {
      ,[]]
     ,["--path ."
      ,{"path":process.cwd()}
+     ,[]]
+    ,["--url http://localhost"
+     ,{"url":"http://localhost/"}
+     ,[]]
+    ,["--url file:///local/file"
+     ,{"url":"file:///local/file"}
+     ,[]]
+    ,["--url file://local/file"
+     ,{"url":"file://local/file"}
      ,[]]
     ].forEach(function (test) {
       var argv = test[0].split(/\s+/)
