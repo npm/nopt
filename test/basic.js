@@ -39,8 +39,15 @@ test("Check types based on name of type", function (t) {
 })
 
 
-test("Types passed without a name are not parsed", function (t) {
+test("Missing types are not parsed", function (t) {
   var parsed = nopt({"parse-me": {}}, null, ['--parse-me=1.20'], 0)
+  //should only contain argv
+  t.equal(Object.keys(parsed).length, 1)
+  t.end()
+})
+
+test("Types passed without a name are not parsed", function (t) {
+  var parsed = nopt({"parse-me": {}}, {}, ['--parse-me=1.20'], 0)
   //should only contain argv
   t.equal(Object.keys(parsed).length, 1)
   t.end()
