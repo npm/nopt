@@ -30,7 +30,7 @@ nice option parser.
                     , "flag" : Boolean
                     , "pick" : Boolean
                     , "many1" : [String, Array]
-                    , "many2" : [path]
+                    , "many2" : [path, Array]
                     }
       , shortHands = { "foofoo" : ["--foo", "Mr. Foo"]
                      , "b7" : ["--bar", "7"]
