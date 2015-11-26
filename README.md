@@ -31,7 +31,7 @@ var nopt = require("nopt")
                 , "flag" : Boolean
                 , "pick" : Boolean
                 , "many1" : [String, Array]
-                , "many2" : [path]
+                , "many2" : [path, Array]
                 }
   , shortHands = { "foofoo" : ["--foo", "Mr. Foo"]
                  , "b7" : ["--bar", "7"]
@@ -45,7 +45,6 @@ var nopt = require("nopt")
              // slice defaults to 2
   , parsed = nopt(knownOpts, shortHands, process.argv, 2)
 console.log(parsed)
-```
 
 This would give you support for any of the following:
 
