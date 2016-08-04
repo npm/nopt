@@ -15,6 +15,14 @@ test("Empty String results in empty string, not true", function (t) {
   t.end()
 })
 
+// https://github.com/npm/nopt/issues/65
+test("Empty String should not swallow next flag", function (t) {
+  var parsed = nopt({ empty: String, foo: String }, {}, ["--empty", "--foo"], 0)
+  t.same(parsed.empty, "")
+  t.same(parsed.foo, "")
+  t.end()
+})
+
 test("~ path is resolved to $HOME", function (t) {
   var path = require("path")
   if (!process.env.HOME) process.env.HOME = "/tmp"
