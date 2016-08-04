@@ -15,6 +15,13 @@ test("Empty String results in empty string, not true", function (t) {
   t.end()
 })
 
+// https://github.com/npm/nopt/issues/66
+test("Empty String should not be true when type is single item Array", function (t) {
+  var parsed = nopt({	'foo': [String] }, {}, ["--foo"], 0)
+  t.same(parsed.foo, "")
+  t.end()
+})
+
 test("~ path is resolved to $HOME", function (t) {
   var path = require("path")
   if (!process.env.HOME) process.env.HOME = "/tmp"
