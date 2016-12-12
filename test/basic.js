@@ -15,11 +15,26 @@ test("Empty String results in empty string, not true", function (t) {
   t.end()
 })
 
-test("~ path is resolved to $HOME", function (t) {
+test("~ path is resolved to " + (isWin ? '%USERPROFILE%' : '$HOME'), function (t) {
   var path = require("path")
-  if (!process.env.HOME) process.env.HOME = "/tmp"
-  var parsed = nopt({key: path}, {}, ["--key=~/val"], 0)
-  t.same(parsed.key, path.resolve(process.env.HOME, "val"))
+    , the
+
+  if (isWin) {
+    the = {
+      key: 'USERPROFILE',
+      dir: 'C:\\temp',
+      val: '~\\val'
+    }
+  } else {
+    the = {
+      key: 'HOME',
+      dir: '/tmp',
+      val: '~/val'
+    }
+  }
+  if (!process.env[the.key]) process.env[the.key] = v.dir
+  var parsed = nopt({key: path}, {}, ["--key=" + the.val], 0)
+  t.same(parsed.key, path.resolve(process.env[the.key], "val"))
   t.end()
 })
 
