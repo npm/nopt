@@ -14,7 +14,8 @@
   "bin": "./bin/nopt.js",
   "license": "ISC",
   "dependencies": {
-    "abbrev": "1"
+    "abbrev": "1",
+    "osenv": "^0.1.4"
   },
   "devDependencies": {
     "tap": "^8.0.1"
