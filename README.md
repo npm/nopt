@@ -45,10 +45,11 @@ var nopt = require("nopt")
              // slice defaults to 2
   , parsed = nopt(knownOpts, shortHands, process.argv, 2)
 console.log(parsed)
+```
 
 This would give you support for any of the following:
 
-```bash
+```console
 $ node my-program.js --foo "blerp" --no-flag
 { "foo" : "blerp", "flag" : false }
 
