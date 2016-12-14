@@ -1,3 +1,13 @@
+### v4.0.1 (2016-12-14)
+
+#### WHOOPS
+
+* [`fb9b1ce`](https://github.com/npm/nopt/commit/fb9b1ce57b3c69b4f7819015be87719204f77ef6)
+  Merged so many patches at once that the code fencing
+  ([@adius](https://github.com/adius)) added got broken. Sorry,
+  ([@adius](https://github.com/adius))!
+  ([@othiym23](https://github.com/othiym23))
+
 ### v4.0.0 (2016-12-13)
 
 #### BREAKING CHANGES
