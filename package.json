@@ -3,6 +3,15 @@
   "version": "4.0.1",
   "description": "Option parsing for Node, supporting types, shorthands, etc. Used by npm.",
   "author": "Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me/)",
+  "keywords" : [
+    "argument",
+    "args",
+    "option",
+    "parser",
+    "parsing",
+    "cli",
+    "command"
+  ],
   "main": "lib/nopt.js",
   "scripts": {
     "test": "tap test/*.js"
