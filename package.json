@@ -7,6 +7,10 @@
   "scripts": {
     "test": "tap test/*.js"
   },
+  "files": [
+    "bin",
+    "lib"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/npm/nopt.git"
