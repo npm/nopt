@@ -18,6 +18,6 @@
     "osenv": "^0.1.4"
   },
   "devDependencies": {
-    "tap": "^8.0.1"
+    "tap": "^12.4.0"
   }
 }
