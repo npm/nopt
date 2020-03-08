@@ -2,6 +2,18 @@ var nopt = require("../")
   , test = require('tap').test
   , isWin = process.platform === 'win32'
 
+test("empty array is fine if type includes Array", function (t) {
+  var typeDefs = {
+    arr: [Array, String]
+  }
+  var data = {
+    arr: []
+  }
+  nopt.clean(data, typeDefs)
+  t.same(data.arr, [])
+  t.end()
+})
+
 test("passing a string results in a string", function (t) {
   var parsed = nopt({ key: String }, {}, ["--key", "myvalue"], 0)
   t.same(parsed.key, "myvalue")
