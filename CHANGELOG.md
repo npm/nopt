@@ -1,5 +1,25 @@
 # Changelog
 
+## [6.0.0](https://github.com/npm/nopt/compare/v5.0.0...v6.0.0) (2022-07-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* This drops support for node 6 through 10 and non-LTS versions of node12 and node14
+
+### Bug Fixes
+
+* linting ([0cb6aa8](https://github.com/npm/nopt/commit/0cb6aa835eb07279cb063a68a5a1ec999745cb5b))
+* replace deprecated String.prototype.substr() ([#85](https://github.com/npm/nopt/issues/85)) ([40c686f](https://github.com/npm/nopt/commit/40c686faffc600ed6f53c5ef1c3c6e1eaeda7c77))
+
+
+* @npmcli/template-oss@3.5.0 ([56e6c7e](https://github.com/npm/nopt/commit/56e6c7e158737b590ea97fc1aa1d6837451a389d))
+
+
+### Dependencies
+
+* fix abbrev requirement to use proper spec ([b8c751a](https://github.com/npm/nopt/commit/b8c751a0763b2f622291040fe92ad9547b22a8a9))
+
 ### v4.0.1 (2016-12-14)
 
 #### WHOOPS
