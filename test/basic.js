@@ -304,12 +304,12 @@ test("other tests", function (t) {
         var e = JSON.stringify(opts[i])
           , a = JSON.stringify(actual[i] === undefined ? null : actual[i])
         if (e && typeof e === "object") {
-          t.deepEqual(e, a)
+          t.same(e, a)
         } else {
           t.equal(e, a)
         }
       }
-      t.deepEqual(rem, parsed.remain)
+      t.same(rem, parsed.remain)
     })
   t.end()
 })
