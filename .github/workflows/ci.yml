@@ -1,80 +1,84 @@
----
-################################################################################
-# Template - Node CI
-#
-# Description:
-#   This contains the basic information to: install dependencies, run tests,
-#   get coverage, and run linting on a nodejs project. This template will run
-#   over the MxN matrix of all operating systems, and all current LTS versions
-#   of NodeJS.
-#
-# Dependencies:
-#   This template assumes that your project is using the `tap` module for
-#   testing. If you're not using this module, then the step that runs your
-#   coverage will need to be adjusted.
-#
-################################################################################
-name: Node CI
+# This file is automatically added by @npmcli/template-oss. Do not edit.
 
-on: [push, pull_request]
+name: CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - '*'
+  push:
+    branches:
+      - main
+      - latest
+  schedule:
+    # "At 02:00 on Monday" https://crontab.guru/#0_2_*_*_1
+    - cron: "0 2 * * 1"
 
 jobs:
-  build:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup git user
+        run: |
+          git config --global user.email "npm-cli+bot@github.com"
+          git config --global user.name "npm CLI robot"
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - name: Update npm to latest
+        run: npm i --prefer-online --no-fund --no-audit -g npm@latest
+      - run: npm -v
+      - run: npm i --ignore-scripts --no-audit --no-fund
+      - run: npm run lint
+
+  test:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [10.x, 12.x, 13.x]
-        os: [ubuntu-latest, windows-latest, macOS-latest]
-
-    runs-on: ${{ matrix.os }}
-
+        node-version:
+          - 12.13.0
+          - 12.x
+          - 14.15.0
+          - 14.x
+          - 16.0.0
+          - 16.x
+        platform:
+          - os: ubuntu-latest
+            shell: bash
+          - os: macos-latest
+            shell: bash
+    runs-on: ${{ matrix.platform.os }}
+    defaults:
+      run:
+        shell: ${{ matrix.platform.shell }}
     steps:
-      # Checkout the repository
-      - uses: actions/checkout@v2
-        # Installs the specific version of Node.js
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - name: Setup git user
+        run: |
+          git config --global user.email "npm-cli+bot@github.com"
+          git config --global user.name "npm CLI robot"
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-
-      ################################################################################
-      # Install Dependencies
-      #
-      #   ASSUMPTIONS:
-      #     - The project has a package-lock.json file
-      #
-      #   Simply run the tests for the project.
-      ################################################################################
-      - name: Install dependencies
-        run: npm ci
-
-      ################################################################################
-      # Run Testing
-      #
-      #   ASSUMPTIONS:
-      #     - The project has `tap` as a devDependency
-      #     - There is a script called "test" in the package.json
-      #
-      #   Simply run the tests for the project.
-      ################################################################################
-      - name: Run tests
-        run: npm test -- --no-coverage
-
-      ################################################################################
-      # Run coverage check
-      #
-      #   ASSUMPTIONS:
-      #     - The project has `tap` as a devDependency
-      #     - There is a script called "coverage" in the package.json
-      #
-      #   Coverage should only be posted once, we are choosing the latest LTS of
-      #   node, and ubuntu as the matrix point to post coverage from. We limit
-      #   to the 'push' event so that coverage ins't posted twice from the
-      #   pull-request event, and push event (line 3).
-      ################################################################################
-      - name: Run coverage report
-        if: github.event_name == 'push' && matrix.node-version == '12.x' && matrix.os == 'ubuntu-latest'
-        run: npm test
-        env:
-          # The environment variable name is leveraged by `tap`
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      - name: Update to workable npm (windows)
+        # node 12 and 14 ship with npm@6, which is known to fail when updating itself in windows
+        if: matrix.platform.os == 'windows-latest' && (startsWith(matrix.node-version, '12.') || startsWith(matrix.node-version, '14.'))
+        run: |
+          curl -sO https://registry.npmjs.org/npm/-/npm-7.5.4.tgz
+          tar xf npm-7.5.4.tgz
+          cd package
+          node lib/npm.js install --no-fund --no-audit -g ..\npm-7.5.4.tgz
+          cd ..
+          rmdir /s /q package
+      - name: Update npm to 7
+        # If we do test on npm 10 it needs npm7
+        if: startsWith(matrix.node-version, '10.')
+        run: npm i --prefer-online --no-fund --no-audit -g npm@7
+      - name: Update npm to latest
+        if: ${{ !startsWith(matrix.node-version, '10.') }}
+        run: npm i --prefer-online --no-fund --no-audit -g npm@latest
+      - run: npm -v
+      - run: npm i --ignore-scripts --no-audit --no-fund
+      - run: npm test --ignore-scripts
