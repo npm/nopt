@@ -5,9 +5,6 @@
   "author": "GitHub Inc.",
   "main": "lib/nopt.js",
   "scripts": {
-    "preversion": "npm test",
-    "postversion": "npm publish",
-    "prepublishOnly": "git push origin --follow-tags",
     "test": "tap",
     "lint": "eslint \"**/*.js\"",
     "postlint": "template-oss-check",
@@ -36,18 +33,22 @@
     "lines": 87,
     "functions": 91,
     "branches": 81,
-    "statements": 87
+    "statements": 87,
+    "nyc-arg": [
+      "--exclude",
+      "tap-snapshots/**"
+    ]
   },
   "files": [
     "bin/",
     "lib/"
   ],
   "engines": {
-    "node": "^12.13.0 || ^14.15.0 || >=16.0.0"
+    "node": "^14.17.0 || ^16.13.0 || >=18.0.0"
   },
   "templateOSS": {
     "//@npmcli/template-oss": "This file is partially managed by @npmcli/template-oss. Edits may be overwritten.",
     "windowsCI": false,
-    "version": "3.5.0"
+    "version": "4.3.2"
   }
 }
