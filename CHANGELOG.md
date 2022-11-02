@@ -1,5 +1,19 @@
 # Changelog
 
+## [7.0.0](https://github.com/npm/nopt/compare/v6.0.0...v7.0.0) (2022-11-02)
+
+### ⚠️ BREAKING CHANGES
+
+* `nopt` is now compatible with the following semver range for node: `^14.17.0 || ^16.13.0 || >=18.0.0`
+
+### Features
+
+* [`f905544`](https://github.com/npm/nopt/commit/f9055443d05cf155de44d9cae1fb2d65b3adba10) [#101](https://github.com/npm/nopt/pull/101) postinstall for dependabot template-oss PR (@lukekarrys)
+
+### Dependencies
+
+* [`040677d`](https://github.com/npm/nopt/commit/040677de5492fef5d2c91a180e1e73093d40b951) [#111](https://github.com/npm/nopt/pull/111) bump abbrev from 1.1.1 to 2.0.0 (#111)
+
 ## [6.0.0](https://github.com/npm/nopt/compare/v5.0.0...v6.0.0) (2022-07-20)
 
 
