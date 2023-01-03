@@ -1,8 +1,8 @@
 var nopt = require('../')
-var test = require('tap').test
+var t = require('tap')
 var isWin = process.platform === 'win32'
 
-test('empty array is fine if type includes Array', function (t) {
+t.test('empty array is fine if type includes Array', function (t) {
   var typeDefs = {
     arr: [Array, String],
   }
@@ -14,21 +14,21 @@ test('empty array is fine if type includes Array', function (t) {
   t.end()
 })
 
-test('passing a string results in a string', function (t) {
+t.test('passing a string results in a string', function (t) {
   var parsed = nopt({ key: String }, {}, ['--key', 'myvalue'], 0)
   t.same(parsed.key, 'myvalue')
   t.end()
 })
 
 // https://github.com/npm/nopt/issues/31
-test('Empty String results in empty string, not true', function (t) {
+t.test('Empty String results in empty string, not true', function (t) {
   var parsed = nopt({ empty: String }, {}, ['--empty'], 0)
   t.same(parsed.empty, '')
   t.end()
 })
 
 // https://github.com/npm/nopt/issues/65
-test('Empty String should not swallow next flag', function (t) {
+t.test('Empty String should not swallow next flag', function (t) {
   var parsed = nopt({ empty: String, foo: String }, {}, ['--empty', '--foo'], 0)
   t.same(parsed.empty, '')
   t.same(parsed.foo, '')
@@ -36,13 +36,13 @@ test('Empty String should not swallow next flag', function (t) {
 })
 
 // https://github.com/npm/nopt/issues/66
-test('Empty String should not be true when type is single item Array', function (t) {
+t.test('Empty String should not be true when type is single item Array', function (t) {
   var parsed = nopt({ foo: [String] }, {}, ['--foo'], 0)
   t.same(parsed.foo, '')
   t.end()
 })
 
-test('~ path is resolved to ' + (isWin ? '%USERPROFILE%' : '$HOME'), function (t) {
+t.test('~ path is resolved to ' + (isWin ? '%USERPROFILE%' : '$HOME'), function (t) {
   var path = require('path')
   var the
 
@@ -68,7 +68,7 @@ test('~ path is resolved to ' + (isWin ? '%USERPROFILE%' : '$HOME'), function (t
 })
 
 // https://github.com/npm/nopt/issues/24
-test('Unknown options are not parsed as numbers', function (t) {
+t.test('Unknown options are not parsed as numbers', function (t) {
   var parsed = nopt({ 'parse-me': Number }, null, ['--leave-as-is=1.20', '--parse-me=1.20'], 0)
   t.equal(parsed['leave-as-is'], '1.20')
   t.equal(parsed['parse-me'], 1.2)
@@ -76,27 +76,27 @@ test('Unknown options are not parsed as numbers', function (t) {
 })
 
 // https://github.com/npm/nopt/issues/48
-test('Check types based on name of type', function (t) {
+t.test('Check types based on name of type', function (t) {
   var parsed = nopt({ 'parse-me': { name: 'Number' } }, null, ['--parse-me=1.20'], 0)
   t.equal(parsed['parse-me'], 1.2)
   t.end()
 })
 
-test('Missing types are not parsed', function (t) {
+t.test('Missing types are not parsed', function (t) {
   var parsed = nopt({ 'parse-me': {} }, null, ['--parse-me=1.20'], 0)
   // should only contain argv
   t.equal(Object.keys(parsed).length, 1)
   t.end()
 })
 
-test('Types passed without a name are not parsed', function (t) {
+t.test('Types passed without a name are not parsed', function (t) {
   var parsed = nopt({ 'parse-me': {} }, {}, ['--parse-me=1.20'], 0)
   // should only contain argv
   t.equal(Object.keys(parsed).length, 1)
   t.end()
 })
 
-test('other tests', function (t) {
+t.test('other tests', function (t) {
   var Stream = require('stream')
   var path = require('path')
   var url = require('url')
@@ -310,5 +310,53 @@ test('other tests', function (t) {
     }
     t.same(rem, parsed.remain)
   })
+  t.end()
+})
+
+t.test('argv toString()', function (t) {
+  var parsed = nopt({ key: String }, {}, ['--key', 'myvalue'], 0)
+  t.same(parsed.argv.toString(), '"--key" "myvalue"')
+  t.end()
+})
+
+t.test('custom invalidHandler', function (t) {
+  t.teardown(() => {
+    delete nopt.invalidHandler
+  })
+  nopt.invalidHandler = (k, v) => {
+    t.match(k, 'key')
+    t.match(v, 'nope')
+    t.end()
+  }
+  nopt({ key: Number }, {}, ['--key', 'nope'], 0)
+})
+
+t.test('numbered boolean', function (t) {
+  var parsed = nopt({ key: [Boolean, String] }, {}, ['--key', '0'], 0)
+  t.same(parsed.key, false)
+  t.end()
+})
+
+t.test('false string boolean', function (t) {
+  var parsed = nopt({ key: [Boolean, String] }, {}, ['--key', 'false'], 0)
+  t.same(parsed.key, false)
+  t.end()
+})
+
+t.test('true string boolean', function (t) {
+  var parsed = nopt({ key: [Boolean, String] }, {}, ['--key', 'true'], 0)
+  t.same(parsed.key, true)
+  t.end()
+})
+
+t.test('null string boolean', function (t) {
+  var parsed = nopt({ key: [Boolean, String] }, {}, ['--key', 'null'], 0)
+  t.same(parsed.key, false)
+  t.end()
+})
+
+t.test('other string boolean', function (t) {
+  var parsed = nopt({ key: [Boolean, String] }, {}, ['--key', 'yes'], 0)
+  t.same(parsed.key, true)
   t.end()
 })
