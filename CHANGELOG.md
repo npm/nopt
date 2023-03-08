@@ -1,5 +1,15 @@
 # Changelog
 
+## [7.1.0](https://github.com/npm/nopt/compare/v7.0.0...v7.1.0) (2023-03-08)
+
+### Features
+
+* [`6830137`](https://github.com/npm/nopt/commit/68301373544fe6a5802360eedd114cacfc3340f7) [#116](https://github.com/npm/nopt/pull/116) add lib export to use nopt in non-global mode (#116) (@lukekarrys)
+
+### Bug Fixes
+
+* [`ce918b9`](https://github.com/npm/nopt/commit/ce918b99911acb85060ef25e600db1bc1c626c2e) [#114](https://github.com/npm/nopt/pull/114) remove dead code (@wraithgar)
+
 ## [7.0.0](https://github.com/npm/nopt/compare/v6.0.0...v7.0.0) (2022-11-02)
 
 ### ⚠️ BREAKING CHANGES
