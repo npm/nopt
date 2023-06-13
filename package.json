@@ -30,9 +30,6 @@
     "tap": "^16.3.0"
   },
   "tap": {
-    "statements": 94,
-    "branches": 88,
-    "lines": 94,
     "nyc-arg": [
       "--exclude",
       "tap-snapshots/**"
