@@ -1,6 +1,6 @@
 {
   "name": "nopt",
-  "version": "7.1.0",
+  "version": "7.2.0",
   "description": "Option parsing for Node, supporting types, shorthands, etc. Used by npm.",
   "author": "GitHub Inc.",
   "main": "lib/nopt.js",
