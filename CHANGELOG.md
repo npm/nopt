@@ -1,5 +1,17 @@
 # Changelog
 
+## [7.2.0](https://github.com/npm/nopt/compare/v7.1.0...v7.2.0) (2023-06-15)
+
+### Features
+
+* [`008c672`](https://github.com/npm/nopt/commit/008c672daccf9e6fadcb349b95221c9e166d6a9e) [#125](https://github.com/npm/nopt/pull/125) add fallback option to use function when looking up types (@lukekarrys)
+* [`082bad3`](https://github.com/npm/nopt/commit/082bad3511cb41a382fd596584fb178b5694e851) [#124](https://github.com/npm/nopt/pull/124) allow setting `typeDefault` on `nopt` and `clean` lib methods (@lukekarrys)
+
+### Bug Fixes
+
+* [`a28412f`](https://github.com/npm/nopt/commit/a28412fd5299a1adcd1fbfd549ee4aa2f51c504d) [#127](https://github.com/npm/nopt/pull/127) cleanup bin (#127) (@lukekarrys)
+* [`7f5b507`](https://github.com/npm/nopt/commit/7f5b50795ba3b658223a8a15489369578393e594) [#126](https://github.com/npm/nopt/pull/126) 100 test coverage (#126) (@lukekarrys)
+
 ## [7.1.0](https://github.com/npm/nopt/compare/v7.0.0...v7.1.0) (2023-03-08)
 
 ### Features
