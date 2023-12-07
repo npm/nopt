@@ -1,5 +1,22 @@
 # Changelog
 
+## [7.2.1](https://github.com/npm/nopt/compare/v7.2.0...v7.2.1) (2023-12-07)
+
+### Chores
+
+* [`55147ac`](https://github.com/npm/nopt/commit/55147ac9d589867f205aeac7b52015aede69ee74) [#155](https://github.com/npm/nopt/pull/155) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`918abd6`](https://github.com/npm/nopt/commit/918abd69bd178ed987fc2bed870f1cb6ccae6309) [#155](https://github.com/npm/nopt/pull/155) bump @npmcli/template-oss from 4.21.1 to 4.21.3 (@dependabot[bot])
+* [`579a1d4`](https://github.com/npm/nopt/commit/579a1d4f6404c8d5cc6e12c7a4a014e1b2a746d0) [#152](https://github.com/npm/nopt/pull/152) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`66bd991`](https://github.com/npm/nopt/commit/66bd99156af3f02a3d94285ece0fb451aa78daae) [#152](https://github.com/npm/nopt/pull/152) bump @npmcli/template-oss from 4.19.0 to 4.21.1 (@dependabot[bot])
+* [`dc67510`](https://github.com/npm/nopt/commit/dc67510013a79b43fc73da9c1094fc6d6ed2b914) [#134](https://github.com/npm/nopt/pull/134) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`61d1ac0`](https://github.com/npm/nopt/commit/61d1ac078a70b8753ba5dd8ba0e3e94550071e23) [#134](https://github.com/npm/nopt/pull/134) bump @npmcli/template-oss from 4.18.1 to 4.19.0 (@dependabot[bot])
+* [`a0dfd72`](https://github.com/npm/nopt/commit/a0dfd720b824e8470c5b4ec5b089f6fdf9686b35) [#133](https://github.com/npm/nopt/pull/133) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`54dc358`](https://github.com/npm/nopt/commit/54dc358d8514046b5733ad085e695ff695dff5bf) [#133](https://github.com/npm/nopt/pull/133) bump @npmcli/template-oss from 4.18.0 to 4.18.1 (@dependabot[bot])
+* [`a025aa0`](https://github.com/npm/nopt/commit/a025aa0fb09bf002e2e1d5020b87890612baa1bd) [#132](https://github.com/npm/nopt/pull/132) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`6b793f2`](https://github.com/npm/nopt/commit/6b793f2f2de8a2cf420d71e343ed9fc34b4fa709) [#132](https://github.com/npm/nopt/pull/132) bump @npmcli/template-oss from 4.17.0 to 4.18.0 (@dependabot[bot])
+* [`06bf575`](https://github.com/npm/nopt/commit/06bf5756cd9ecf1b3e37fa99312eb4efb142ed1a) [#131](https://github.com/npm/nopt/pull/131) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`f613bca`](https://github.com/npm/nopt/commit/f613bca7d0fb1a84011db1d23a2cd3a010ec21a2) [#131](https://github.com/npm/nopt/pull/131) bump @npmcli/template-oss from 4.15.1 to 4.17.0 (@dependabot[bot])
+
 ## [7.2.0](https://github.com/npm/nopt/compare/v7.1.0...v7.2.0) (2023-06-15)
 
 ### Features
