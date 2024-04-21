@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.2.1](https://github.com/npm/nopt/compare/v7.2.0...v7.2.1) (2024-04-21)
+
+### Chores
+
+* [`c861607`](https://github.com/npm/nopt/commit/c861607145e85f6661a7615004b5cdc390061c77) [#159](https://github.com/npm/nopt/pull/159) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`28cb4e1`](https://github.com/npm/nopt/commit/28cb4e19f4c80fcd440c64e81fde8ba872a9a976) [#159](https://github.com/npm/nopt/pull/159) bump @npmcli/template-oss from 4.21.3 to 4.21.4 (@dependabot[bot])
+
 ## [7.2.0](https://github.com/npm/nopt/compare/v7.1.0...v7.2.0) (2023-06-15)
 
 ### Features
