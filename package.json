@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/npm/nopt.git"
+    "url": "git+https://github.com/npm/nopt.git"
   },
   "bin": {
     "nopt": "bin/nopt.js"
@@ -45,7 +45,7 @@
   "templateOSS": {
     "//@npmcli/template-oss": "This file is partially managed by @npmcli/template-oss. Edits may be overwritten.",
     "windowsCI": false,
-    "version": "4.21.4",
+    "version": "4.22.0",
     "publish": true
   }
 }
