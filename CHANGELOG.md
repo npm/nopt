@@ -1,5 +1,17 @@
 # Changelog
 
+## [7.2.1](https://github.com/npm/nopt/compare/v7.2.0...v7.2.1) (2024-05-04)
+
+### Bug Fixes
+
+* [`2fb2144`](https://github.com/npm/nopt/commit/2fb21444311086adb561de0eed68ccff155fd444) [#160](https://github.com/npm/nopt/pull/160) linting: no-unused-vars (@lukekarrys)
+
+### Chores
+
+* [`2bdcfcb`](https://github.com/npm/nopt/commit/2bdcfcbc11059556899d5bf448ac527ad294efdf) [#160](https://github.com/npm/nopt/pull/160) bump @npmcli/template-oss to 4.22.0 (@lukekarrys)
+* [`0aa1d01`](https://github.com/npm/nopt/commit/0aa1d01d99cacc5f1cc73071e1b476039b6ef2f5) [#160](https://github.com/npm/nopt/pull/160) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`28cb4e1`](https://github.com/npm/nopt/commit/28cb4e19f4c80fcd440c64e81fde8ba872a9a976) [#159](https://github.com/npm/nopt/pull/159) bump @npmcli/template-oss from 4.21.3 to 4.21.4 (@dependabot[bot])
+
 ## [7.2.0](https://github.com/npm/nopt/compare/v7.1.0...v7.2.0) (2023-06-15)
 
 ### Features
