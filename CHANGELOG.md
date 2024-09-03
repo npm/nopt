@@ -1,5 +1,16 @@
 # Changelog
 
+## [8.0.0](https://github.com/npm/nopt/compare/v7.2.1...v8.0.0) (2024-09-03)
+### ⚠️ BREAKING CHANGES
+* `nopt` now supports node `^18.17.0 || >=20.5.0`
+### Bug Fixes
+* [`208d02b`](https://github.com/npm/nopt/commit/208d02bba7e5934086d0b53228fb4272d91fa07d) [#174](https://github.com/npm/nopt/pull/174) align to npm 10 node engine range (@hashtagchris)
+### Chores
+* [`a8e567c`](https://github.com/npm/nopt/commit/a8e567cd637d02cb5cb19c1b0a01d888bc48f38b) [#174](https://github.com/npm/nopt/pull/174) run template-oss-apply (@hashtagchris)
+* [`5429145`](https://github.com/npm/nopt/commit/54291454fdd28107257a2d109314f886f15356f0) [#172](https://github.com/npm/nopt/pull/172) bump @npmcli/eslint-config from 4.0.5 to 5.0.0 (@dependabot[bot])
+* [`5eeda97`](https://github.com/npm/nopt/commit/5eeda97149cfae9f4d93d74553109c576cd5babc) [#173](https://github.com/npm/nopt/pull/173) postinstall for dependabot template-oss PR (@hashtagchris)
+* [`bff360b`](https://github.com/npm/nopt/commit/bff360bdcf65f89df5983a4842691802b8811050) [#173](https://github.com/npm/nopt/pull/173) bump @npmcli/template-oss from 4.23.1 to 4.23.3 (@dependabot[bot])
+
 ## [7.2.1](https://github.com/npm/nopt/compare/v7.2.0...v7.2.1) (2024-05-04)
 
 ### Bug Fixes
