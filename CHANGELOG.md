@@ -1,5 +1,9 @@
 # Changelog
 
+## [8.0.1](https://github.com/npm/nopt/compare/v8.0.0...v8.0.1) (2024-09-26)
+### Dependencies
+* [`9e64314`](https://github.com/npm/nopt/commit/9e64314c2c688b8309f6a9fa6c5d23ff60b4b7b8) [#176](https://github.com/npm/nopt/pull/176) bump abbrev from 2.0.0 to 3.0.0 (#176)
+
 ## [8.0.0](https://github.com/npm/nopt/compare/v7.2.1...v8.0.0) (2024-09-03)
 ### ⚠️ BREAKING CHANGES
 * `nopt` now supports node `^18.17.0 || >=20.5.0`
