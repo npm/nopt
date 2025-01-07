@@ -2,12 +2,23 @@ const t = require('tap')
 const noptLib = require('../lib/nopt-lib.js')
 const Stream = require('stream')
 
-const nopt = (t, argv, opts, expected) => {
+const logs = []
+t.afterEach(() => {
+  logs.length = 0
+})
+process.on('log', (...msg) => {
+  logs.push(msg)
+})
+
+const nopt = (t, argv, opts, expected, expectedLogs) => {
   if (Array.isArray(argv)) {
     t.strictSame(noptLib.nopt(argv, { typeDefs: noptLib.typeDefs, ...opts }), expected)
   } else {
     noptLib.clean(argv, { typeDefs: noptLib.typeDefs, ...opts })
     t.match(argv, expected)
+  }
+  if (expectedLogs) {
+    t.match(expectedLogs, logs)
   }
   t.end()
 }
@@ -125,6 +136,43 @@ t.test('false invalid handler', (t) => {
   })
 })
 
+t.test('longhand abbreviation', (t) => {
+  nopt(t, ['--lon', 'text'], {
+    types: {
+      long: String,
+    },
+  }, {
+    long: 'text',
+    argv: {
+      remain: [],
+      cooked: ['--lon', 'text'],
+      original: ['--lon', 'text'],
+    },
+  }, [
+    /* eslint-disable-next-line max-len */
+    ['warn', 'Expanding "--lon" to "--long". This will stop working in the next major version of npm.'],
+  ])
+})
+
+t.test('shorthand abbreviation', (t) => {
+  nopt(t, ['--shor'], {
+    types: {},
+    shorthands: {
+      short: '--shorthand',
+    },
+  }, {
+    shorthand: true,
+    argv: {
+      remain: [],
+      cooked: ['--shorthand'],
+      original: ['--shor'],
+    },
+  }, [
+    /* eslint-disable-next-line max-len */
+    ['warn', 'Expanding "--shor" to "--short". This will stop working in the next major version of npm.'],
+  ])
+})
+
 t.test('shorthands that is the same', (t) => {
   nopt(t, ['--sh'], {
     types: {},
@@ -142,14 +190,16 @@ t.test('shorthands that is the same', (t) => {
 })
 
 t.test('unknown multiple', (t) => {
-  nopt(t, ['--mult', '--mult', '--mult'], {
+  nopt(t, ['--mult', '--mult', '--mult', 'extra'], {
     types: {},
   }, {
     mult: [true, true, true],
     argv: {
-      remain: [],
-      cooked: ['--mult', '--mult', '--mult'],
-      original: ['--mult', '--mult', '--mult'],
+      remain: ['extra'],
+      cooked: ['--mult', '--mult', '--mult', 'extra'],
+      original: ['--mult', '--mult', '--mult', 'extra'],
     },
-  })
+  }, [
+    ['warn', '"extra" is being parsed as a normal command line argument.'],
+  ])
 })
