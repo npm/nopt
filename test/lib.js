@@ -2,23 +2,12 @@ const t = require('tap')
 const noptLib = require('../lib/nopt-lib.js')
 const Stream = require('stream')
 
-const logs = []
-t.afterEach(() => {
-  logs.length = 0
-})
-process.on('log', (...msg) => {
-  logs.push(msg)
-})
-
-const nopt = (t, argv, opts, expected, expectedLogs) => {
+const nopt = (t, argv, opts, expected) => {
   if (Array.isArray(argv)) {
     t.strictSame(noptLib.nopt(argv, { typeDefs: noptLib.typeDefs, ...opts }), expected)
   } else {
     noptLib.clean(argv, { typeDefs: noptLib.typeDefs, ...opts })
     t.match(argv, expected)
-  }
-  if (expectedLogs) {
-    t.match(expectedLogs, logs)
   }
   t.end()
 }
@@ -136,41 +125,97 @@ t.test('false invalid handler', (t) => {
   })
 })
 
-t.test('longhand abbreviation', (t) => {
-  nopt(t, ['--lon', 'text'], {
-    types: {
-      long: String,
-    },
+t.test('false unknown handler string', (t) => {
+  // this is only for coverage
+  nopt(t, ['--x', 'null'], {
+    unknownHandler: false,
   }, {
-    long: 'text',
+    x: true,
+    argv: {
+      remain: ['null'],
+      cooked: ['--x', 'null'],
+      original: ['--x', 'null'],
+    },
+  })
+})
+
+t.test('default unknown handler opt', (t) => {
+  // this is only for coverage
+  nopt(t, ['--x', '--y'], {}, {
+    x: true,
+    y: true,
     argv: {
       remain: [],
-      cooked: ['--lon', 'text'],
-      original: ['--lon', 'text'],
+      cooked: ['--x', '--y'],
+      original: ['--x', '--y'],
     },
-  }, [
-    /* eslint-disable-next-line max-len */
-    ['warn', 'Expanding "--lon" to "--long". This will stop working in the next major version of npm.'],
-  ])
+  })
+})
+
+t.test('false abbrev handler normal', (t) => {
+  // this is only for coverage
+  nopt(t, ['--long', 'true'], {
+    types: {
+      longhand: Boolean,
+    },
+    abbrevHandler: false,
+  }, {
+    longhand: true,
+    argv: {
+      remain: [],
+      cooked: ['--long', 'true'],
+      original: ['--long', 'true'],
+    },
+  })
+})
+
+t.test('false abbrev handler shorthand', (t) => {
+  // this is only for coverage
+  nopt(t, ['--shor', 'true'], {
+    types: {},
+    shorthands: {
+      short: '--longhand',
+    },
+    abbrevHandler: false,
+  }, {
+    longhand: true,
+    argv: {
+      remain: [],
+      cooked: ['--longhand', 'true'],
+      original: ['--shor', 'true'],
+    },
+  })
+})
+
+t.test('normal abbreviation', (t) => {
+  nopt(t, ['--shor', 'text'], {
+    types: {
+      shorthand: String,
+    },
+  }, {
+    shorthand: 'text',
+    argv: {
+      remain: [],
+      cooked: ['--shor', 'text'],
+      original: ['--shor', 'text'],
+    },
+  })
 })
 
 t.test('shorthand abbreviation', (t) => {
   nopt(t, ['--shor'], {
     types: {},
     shorthands: {
-      short: '--shorthand',
+      short: '--longhand',
     },
   }, {
-    shorthand: true,
+    longhand: true,
     argv: {
       remain: [],
-      cooked: ['--shorthand'],
+      cooked: ['--longhand'],
       original: ['--shor'],
     },
-  }, [
-    /* eslint-disable-next-line max-len */
-    ['warn', 'Expanding "--shor" to "--short". This will stop working in the next major version of npm.'],
-  ])
+  })
 })
 
 t.test('shorthands that is the same', (t) => {
@@ -199,7 +244,5 @@ t.test('unknown multiple', (t) => {
       cooked: ['--mult', '--mult', '--mult', 'extra'],
       original: ['--mult', '--mult', '--mult', 'extra'],
     },
-  }, [
-    ['warn', '"extra" is being parsed as a normal command line argument.'],
-  ])
+  })
 })

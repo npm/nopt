@@ -346,6 +346,57 @@ t.test('custom invalidHandler', t => {
   nopt({ key: Number }, {}, ['--key', 'nope'], 0)
 })
 
+t.test('custom unknownHandler string', t => {
+  t.teardown(() => {
+    delete nopt.unknownHandler
+  })
+  nopt.unknownHandler = (k, next) => {
+    t.match(k, 'x')
+    t.match(next, 'null')
+    t.end()
+  }
+  nopt({}, {}, ['--x', 'null'], 0)
+})
+
+t.test('custom unknownHandler boolean', t => {
+  t.teardown(() => {
+    delete nopt.unknownHandler
+  })
+  nopt.unknownHandler = (k, next) => {
+    t.match(k, 'x')
+    t.match(next, undefined)
+    t.end()
+  }
+  nopt({}, {}, ['--x', 'false'], 0)
+})
+
+t.test('custom normal abbrevHandler', t => {
+  t.teardown(() => {
+    delete nopt.abbrevHandler
+  })
+  nopt.abbrevHandler = (short, long) => {
+    t.match(short, 'shor')
+    t.match(long, 'shorthand')
+    t.end()
+  }
+  nopt({ shorthand: Boolean }, {}, ['--short', 'true'], 0)
+})
+
+t.test('custom shorthand abbrevHandler', t => {
+  t.teardown(() => {
+    delete nopt.abbrevHandler
+  })
+  nopt.abbrevHandler = (short, long) => {
+    t.match(short, 'shor')
+    t.match(long, 'shorthand')
+    t.end()
+  }
+  nopt({
+    longhand: Boolean,
+  }, { shorthand: '--longhand' },
+  ['--short', 'true'], 0)
+})
+
 t.test('numbered boolean', t => {
   const parsed = nopt({ key: [Boolean, String] }, {}, ['--key', '0'], 0)
   t.same(parsed.key, false)
