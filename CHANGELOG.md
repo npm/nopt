@@ -1,5 +1,17 @@
 # Changelog
 
+## [8.1.0](https://github.com/npm/nopt/compare/v8.0.0...v8.1.0) (2025-01-21)
+### Features
+* [`3319782`](https://github.com/npm/nopt/commit/33197822ef1bbcefe8878531598cea25088595fc) [#180](https://github.com/npm/nopt/pull/180) add unknownHandler and abbrevHandler (@wraithgar)
+### Bug Fixes
+* [`304b903`](https://github.com/npm/nopt/commit/304b903c118ac10ed28c0cc4b3fab6c32b6b4da0) [#179](https://github.com/npm/nopt/pull/179) log warnings about unknown config situations (@wraithgar)
+### Dependencies
+* [`a7156b2`](https://github.com/npm/nopt/commit/a7156b2491a82bca3950c4ea6b3059697ae5b638) [#180](https://github.com/npm/nopt/pull/180) remove proc-log
+* [`8dd86dd`](https://github.com/npm/nopt/commit/8dd86ddbd2d93bac42b03c826ea2292256abb32e) [#179](https://github.com/npm/nopt/pull/179) add `proc-log@5.0.0`
+* [`9e64314`](https://github.com/npm/nopt/commit/9e64314c2c688b8309f6a9fa6c5d23ff60b4b7b8) [#176](https://github.com/npm/nopt/pull/176) bump abbrev from 2.0.0 to 3.0.0 (#176)
+### Chores
+* [`d7916cd`](https://github.com/npm/nopt/commit/d7916cd03d22e6653ce7c3d6e90f6557dee789a1) [#181](https://github.com/npm/nopt/pull/181) bump @npmcli/template-oss from 4.23.4 to 4.23.6 (#181) (@dependabot[bot], @npm-cli-bot)
+
 ## [8.0.0](https://github.com/npm/nopt/compare/v7.2.1...v8.0.0) (2024-09-03)
 ### ⚠️ BREAKING CHANGES
 * `nopt` now supports node `^18.17.0 || >=20.5.0`
