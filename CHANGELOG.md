@@ -1,5 +1,16 @@
 # Changelog
 
+## [9.0.0](https://github.com/npm/nopt/compare/v8.1.0...v9.0.0) (2025-10-22)
+### ⚠️ BREAKING CHANGES
+* `nopt` now supports node `^20.17.0 || >=22.9.0`
+### Bug Fixes
+* [`d304e27`](https://github.com/npm/nopt/commit/d304e2760823ac02925c5d1dfb1593554603e30a) [#189](https://github.com/npm/nopt/pull/189) align to npm 11 node engine range (@owlstronaut)
+### Dependencies
+* [`5b85c97`](https://github.com/npm/nopt/commit/5b85c97364837a9739b6eae8d2bc4a9b780134bd) [#189](https://github.com/npm/nopt/pull/189) `abbrev@4.0.0`
+### Chores
+* [`ffb5dad`](https://github.com/npm/nopt/commit/ffb5dad71d1c6c72a6c299d735d9adb461410913) [#189](https://github.com/npm/nopt/pull/189) template-oss-apply (@owlstronaut)
+* [`af91ff2`](https://github.com/npm/nopt/commit/af91ff27ef60d64c1aa6a092627e39ea0a905820) [#188](https://github.com/npm/nopt/pull/188) bump @npmcli/template-oss from 4.26.0 to 4.27.1 (#188) (@dependabot[bot], @npm-cli-bot)
+
 ## [8.1.0](https://github.com/npm/nopt/compare/v8.0.0...v8.1.0) (2025-01-21)
 ### Features
 * [`3319782`](https://github.com/npm/nopt/commit/33197822ef1bbcefe8878531598cea25088595fc) [#180](https://github.com/npm/nopt/pull/180) add unknownHandler and abbrevHandler (@wraithgar)
