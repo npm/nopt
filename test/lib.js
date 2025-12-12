@@ -1,37 +1,39 @@
-const t = require('tap')
+const { test } = require('node:test')
+const assert = require('node:assert')
 const noptLib = require('../lib/nopt-lib.js')
 const Stream = require('stream')
 
 const nopt = (t, argv, opts, expected) => {
   if (Array.isArray(argv)) {
-    t.strictSame(noptLib.nopt(argv, { typeDefs: noptLib.typeDefs, ...opts }), expected)
+    assert.deepStrictEqual(noptLib.nopt(argv, { typeDefs: noptLib.typeDefs, ...opts }), expected)
   } else {
     noptLib.clean(argv, { typeDefs: noptLib.typeDefs, ...opts })
-    t.match(argv, expected)
+    // Partial object matching - check only expected properties
+    for (const key in expected) {
+      assert.deepStrictEqual(argv[key], expected[key])
+    }
   }
-  t.end()
 }
 
-t.test('stream', t => {
+test('stream', t => {
   nopt(t, { x: new Stream.Readable() }, { types: { x: Stream } }, {})
 })
 
-t.test('no/missing options', t => {
-  t.doesNotThrow(() => noptLib.nopt([]))
-  t.doesNotThrow(() => noptLib.nopt([], {}))
-  t.doesNotThrow(() => noptLib.clean({}))
-  t.doesNotThrow(() => noptLib.clean({}, {}))
-  t.doesNotThrow(() => noptLib.parse([]))
-  t.doesNotThrow(() => noptLib.parse([], {}, [], {}))
-  t.doesNotThrow(() => noptLib.validate({}))
-  t.doesNotThrow(() => noptLib.validate({}, null, null, null, {}))
-  t.doesNotThrow(() => noptLib.resolveShort(''))
-  t.doesNotThrow(() => noptLib.resolveShort('', {}))
-  t.doesNotThrow(() => noptLib.resolveShort('', {}, {}, {}))
-  t.end()
+test('no/missing options', () => {
+  assert.doesNotThrow(() => noptLib.nopt([]))
+  assert.doesNotThrow(() => noptLib.nopt([], {}))
+  assert.doesNotThrow(() => noptLib.clean({}))
+  assert.doesNotThrow(() => noptLib.clean({}, {}))
+  assert.doesNotThrow(() => noptLib.parse([]))
+  assert.doesNotThrow(() => noptLib.parse([], {}, [], {}))
+  assert.doesNotThrow(() => noptLib.validate({}))
+  assert.doesNotThrow(() => noptLib.validate({}, null, null, null, {}))
+  assert.doesNotThrow(() => noptLib.resolveShort(''))
+  assert.doesNotThrow(() => noptLib.resolveShort('', {}))
+  assert.doesNotThrow(() => noptLib.resolveShort('', {}, {}, {}))
 })
 
-t.test('key argv is ignored', (t) => {
+test('key argv is ignored', (t) => {
   nopt(t, ['--argvv', '--argv'], {}, {
     argvv: true,
     argv: {
@@ -42,7 +44,7 @@ t.test('key argv is ignored', (t) => {
   })
 })
 
-t.test('boolean with null', (t) => {
+test('boolean with null', (t) => {
   nopt(t, ['--boolNull', 'null', '--boolOnly', 'null'], {
     types: {
       boolNull: [Boolean, null],
@@ -59,7 +61,7 @@ t.test('boolean with null', (t) => {
   })
 })
 
-t.test('-- after non string type', (t) => {
+test('-- after non string type', (t) => {
   nopt(t, ['--x', '5', '--y', '--', '200'], {
     types: {
       x: Number,
@@ -78,7 +80,7 @@ t.test('-- after non string type', (t) => {
   })
 })
 
-t.test('nan', (t) => {
+test('nan', (t) => {
   nopt(t, ['--x', '5'], {
     types: {
       x: NaN,
@@ -93,7 +95,7 @@ t.test('nan', (t) => {
   })
 })
 
-t.test('string/null', (t) => {
+test('string/null', (t) => {
   nopt(t, ['--x', 'null', '--y', 'false', '--z', 'true'], {
     types: {
       x: Number,
@@ -109,7 +111,7 @@ t.test('string/null', (t) => {
   })
 })
 
-t.test('false invalid handler', (t) => {
+test('false invalid handler', (t) => {
   // this is only for coverage
   nopt(t, ['--x', 'null'], {
     types: {
@@ -125,7 +127,7 @@ t.test('false invalid handler', (t) => {
   })
 })
 
-t.test('false unknown handler string', (t) => {
+test('false unknown handler string', (t) => {
   // this is only for coverage
   nopt(t, ['--x', 'null'], {
     unknownHandler: false,
@@ -139,7 +141,7 @@ t.test('false unknown handler string', (t) => {
   })
 })
 
-t.test('default unknown handler opt', (t) => {
+test('default unknown handler opt', (t) => {
   // this is only for coverage
   nopt(t, ['--x', '--y'], {}, {
     x: true,
@@ -152,7 +154,7 @@ t.test('default unknown handler opt', (t) => {
   })
 })
 
-t.test('false abbrev handler normal', (t) => {
+test('false abbrev handler normal', (t) => {
   // this is only for coverage
   nopt(t, ['--long', 'true'], {
     types: {
@@ -169,7 +171,7 @@ t.test('false abbrev handler normal', (t) => {
   })
 })
 
-t.test('false abbrev handler shorthand', (t) => {
+test('false abbrev handler shorthand', (t) => {
   // this is only for coverage
   nopt(t, ['--shor', 'true'], {
     types: {},
@@ -187,7 +189,7 @@ t.test('false abbrev handler shorthand', (t) => {
   })
 })
 
-t.test('normal abbreviation', (t) => {
+test('normal abbreviation', (t) => {
   nopt(t, ['--shor', 'text'], {
     types: {
       shorthand: String,
@@ -202,7 +204,7 @@ t.test('normal abbreviation', (t) => {
   })
 })
 
-t.test('shorthand abbreviation', (t) => {
+test('shorthand abbreviation', (t) => {
   nopt(t, ['--shor'], {
     types: {},
     shorthands: {
@@ -218,7 +220,7 @@ t.test('shorthand abbreviation', (t) => {
   })
 })
 
-t.test('shorthands that is the same', (t) => {
+test('shorthands that is the same', (t) => {
   nopt(t, ['--sh'], {
     types: {},
     shorthands: {
@@ -234,7 +236,7 @@ t.test('shorthands that is the same', (t) => {
   })
 })
 
-t.test('unknown multiple', (t) => {
+test('unknown multiple', (t) => {
   nopt(t, ['--mult', '--mult', '--mult', 'extra'], {
     types: {},
   }, {

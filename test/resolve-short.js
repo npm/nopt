@@ -1,10 +1,11 @@
-const t = require('tap')
+const { test } = require('node:test')
+const assert = require('node:assert')
 const nopt = require('../lib/nopt-lib.js')
 
-t.test('basic', (t) => {
+test('basic', () => {
   const assertShort = (v, expected) => {
     const k = 'package-lock'
-    t.strictSame(nopt.resolveShort(v, {
+    assert.deepStrictEqual(nopt.resolveShort(v, {
       shorthands: { shrinkwrap: `--${k} true` },
       types: { [k]: Boolean },
     }), expected !== undefined ? expected : [`--${k}`, 'true'], v)
@@ -16,6 +17,4 @@ t.test('basic', (t) => {
   assertShort('shr')
   assertShort('--package-lock', null)
   assertShort('--pa', null)
-
-  t.end()
 })

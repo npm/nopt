@@ -1,7 +1,8 @@
-const t = require('tap')
+const { test } = require('node:test')
+const assert = require('node:assert')
 const nopt = require('../lib/nopt-lib.js')
 
-t.test('fallback types', (t) => {
+test('fallback types', () => {
   const n = (dynamicTypes) => {
     const args = [
       '--hello', '100',
@@ -23,7 +24,7 @@ t.test('fallback types', (t) => {
     return res
   }
 
-  t.strictSame(n(), {
+  assert.deepStrictEqual(n(), {
     hello: 100,
     goodbye: true,
     hat: 'blue',
@@ -44,7 +45,7 @@ t.test('fallback types', (t) => {
     },
   }, 'parse args with no fallback')
 
-  t.strictSame(n((k) => {
+  assert.deepStrictEqual(n((k) => {
     if (k.startsWith('goo')) {
       return nopt.typeDefs.Number.type
     }
@@ -67,6 +68,4 @@ t.test('fallback types', (t) => {
       remain: [],
     },
   }, 'parse args with no fallback')
-
-  t.end()
 })

@@ -1,27 +1,26 @@
-const t = require('tap')
+const { test } = require('node:test')
+const assert = require('node:assert')
 const path = require('path')
 const os = require('os')
+const noptLib = require('../lib/nopt-lib.js')
 
 const nopt = (t, argv, opts, expected) => {
-  const mockNopt = t.mock('../lib/nopt-lib.js', {
-    '../lib/type-defs.js': t.mock('../lib/type-defs.js'),
-  })
-  t.match(
-    mockNopt.nopt(argv, { typeDefs: mockNopt.typeDefs, ...opts }),
-    expected
-  )
-  t.end()
+  const result = noptLib.nopt(argv, { typeDefs: noptLib.typeDefs, ...opts })
+  // Partial object matching - check only expected properties
+  for (const key in expected) {
+    assert.deepStrictEqual(result[key], expected[key])
+  }
 }
 
-t.test('path + null', t => {
+test('path + null', t => {
   nopt(t, ['--x', 'null'], { types: { x: [path, null] } }, {
     x: undefined,
   })
 })
 
-t.test('win32 path', t => {
+test('win32 path', t => {
   const platform = Object.getOwnPropertyDescriptor(process, 'platform')
-  t.teardown(() => Object.defineProperty(process, 'platform', platform))
+  t.after(() => Object.defineProperty(process, 'platform', platform))
   Object.defineProperty(process, 'platform', { ...platform, value: 'win32' })
   nopt(t, ['--x', '~/y'], { types: { x: path } }, {
     x: `${os.homedir()}/y`,

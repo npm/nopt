@@ -1,7 +1,8 @@
-const t = require('tap')
+const { test } = require('node:test')
+const assert = require('node:assert')
 const nopt = require('../lib/nopt-lib.js')
 
-t.test('use other type default', (t) => {
+test('use other type default', () => {
   const NotAllowed = Symbol('NotAllowed')
   const Invalid = Symbol('Invalid')
 
@@ -26,7 +27,7 @@ t.test('use other type default', (t) => {
     }
   }
 
-  t.strictSame(clean({
+  assert.deepStrictEqual(clean({
     str: 'aaa',
     invalid: 'bad',
     unknown: 'huh?',
@@ -35,7 +36,7 @@ t.test('use other type default', (t) => {
     invalids: [['invalid', 'bad', Invalid]],
   }, 'invalid data is removed with clean')
 
-  t.strictSame(clean({
+  assert.deepStrictEqual(clean({
     str: 'aaa',
     invalid: 'bad',
     unknown: 'huh?',
@@ -43,6 +44,4 @@ t.test('use other type default', (t) => {
     keys: ['str'],
     invalids: [['invalid', 'bad', Invalid], ['unknown', 'huh?', NotAllowed]],
   }, 'invalid and unknown data is removed with a custom typeDefault')
-
-  t.end()
 })

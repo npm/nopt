@@ -1,8 +1,9 @@
 const nopt = require('../')
-const t = require('tap')
+const { test } = require('node:test')
+const assert = require('node:assert')
 const isWin = process.platform === 'win32'
 
-t.test('empty array is fine if type includes Array', t => {
+test('empty array is fine if type includes Array', () => {
   const types = {
     arr: [Array, String],
   }
@@ -10,39 +11,34 @@ t.test('empty array is fine if type includes Array', t => {
     arr: [],
   }
   nopt.clean(data, types)
-  t.same(data.arr, [])
-  t.end()
+  assert.deepStrictEqual(data.arr, [])
 })
 
-t.test('passing a string results in a string', t => {
+test('passing a string results in a string', () => {
   const parsed = nopt({ key: String }, {}, ['--key', 'myvalue'], 0)
-  t.same(parsed.key, 'myvalue')
-  t.end()
+  assert.deepStrictEqual(parsed.key, 'myvalue')
 })
 
 // https://github.com/npm/nopt/issues/31
-t.test('Empty String results in empty string, not true', t => {
+test('Empty String results in empty string, not true', () => {
   const parsed = nopt({ empty: String }, {}, ['--empty'], 0)
-  t.same(parsed.empty, '')
-  t.end()
+  assert.deepStrictEqual(parsed.empty, '')
 })
 
 // https://github.com/npm/nopt/issues/65
-t.test('Empty String should not swallow next flag', t => {
+test('Empty String should not swallow next flag', () => {
   const parsed = nopt({ empty: String, foo: String }, {}, ['--empty', '--foo'], 0)
-  t.same(parsed.empty, '')
-  t.same(parsed.foo, '')
-  t.end()
+  assert.deepStrictEqual(parsed.empty, '')
+  assert.deepStrictEqual(parsed.foo, '')
 })
 
 // https://github.com/npm/nopt/issues/66
-t.test('Empty String should not be true when type is single item Array', t => {
+test('Empty String should not be true when type is single item Array', () => {
   const parsed = nopt({ foo: [String] }, {}, ['--foo'], 0)
-  t.same(parsed.foo, '')
-  t.end()
+  assert.deepStrictEqual(parsed.foo, '')
 })
 
-t.test('~ path is resolved to ' + (isWin ? '%USERPROFILE%' : '$HOME'), t => {
+test('~ path is resolved to ' + (isWin ? '%USERPROFILE%' : '$HOME'), () => {
   const path = require('path')
   const the = isWin
     ? {
@@ -59,53 +55,46 @@ t.test('~ path is resolved to ' + (isWin ? '%USERPROFILE%' : '$HOME'), t => {
     process.env[the.key] = the.dir
   }
   const parsed = nopt({ key: path }, {}, ['--key=' + the.val], 0)
-  t.same(parsed.key, path.resolve(process.env[the.key], 'val'))
-  t.end()
+  assert.deepStrictEqual(parsed.key, path.resolve(process.env[the.key], 'val'))
 })
 
 // https://github.com/npm/nopt/issues/24
-t.test('Unknown options are not parsed as numbers', t => {
+test('Unknown options are not parsed as numbers', () => {
   const parsed = nopt({ 'parse-me': Number }, null, ['--leave-as-is=1.20', '--parse-me=1.20'], 0)
-  t.equal(parsed['leave-as-is'], '1.20')
-  t.equal(parsed['parse-me'], 1.2)
-  t.end()
+  assert.strictEqual(parsed['leave-as-is'], '1.20')
+  assert.strictEqual(parsed['parse-me'], 1.2)
 })
 
 // https://github.com/npm/nopt/issues/48
-t.test('Check types based on name of type', t => {
+test('Check types based on name of type', () => {
   const parsed = nopt({ 'parse-me': { name: 'Number' } }, null, ['--parse-me=1.20'], 0)
-  t.equal(parsed['parse-me'], 1.2)
-  t.end()
+  assert.strictEqual(parsed['parse-me'], 1.2)
 })
 
-t.test('Missing types are not parsed', t => {
+test('Missing types are not parsed', () => {
   const parsed = nopt({ 'parse-me': {} }, null, ['--parse-me=1.20'], 0)
   // should only contain argv
-  t.equal(Object.keys(parsed).length, 1)
-  t.end()
+  assert.strictEqual(Object.keys(parsed).length, 1)
 })
 
-t.test('Types passed without a name are not parsed', t => {
+test('Types passed without a name are not parsed', () => {
   const parsed = nopt({ 'parse-me': {} }, {}, ['--parse-me=1.20'], 0)
   // should only contain argv
-  t.equal(Object.keys(parsed).length, 1)
-  t.end()
+  assert.strictEqual(Object.keys(parsed).length, 1)
 })
 
-t.test('no types does not throw', t => {
+test('no types does not throw', () => {
   const parsed = nopt(null, null, ['--leave-as-is=1.20'], 0)
-  t.equal(parsed['leave-as-is'], '1.20')
-  t.end()
+  assert.strictEqual(parsed['leave-as-is'], '1.20')
 })
 
-t.test('clean: no types does not throw', t => {
+test('clean: no types does not throw', () => {
   const data = { 'leave-unknown': 'still here' }
   nopt.clean(data)
-  t.strictSame(data, { 'leave-unknown': 'still here' })
-  t.end()
+  assert.deepStrictEqual(data, { 'leave-unknown': 'still here' })
 })
 
-t.test('other tests', t => {
+test('other tests', () => {
   const Stream = require('stream')
   const path = require('path')
   const url = require('url')
@@ -318,78 +307,71 @@ t.test('other tests', t => {
       const e = JSON.stringify(opts[i])
       const a = JSON.stringify(actual[i] === undefined ? null : actual[i])
       if (e && typeof e === 'object') {
-        t.same(e, a)
+        assert.deepStrictEqual(e, a)
       } else {
-        t.equal(e, a)
+        assert.strictEqual(e, a)
       }
     }
-    t.same(rem, parsed.remain)
+    assert.deepStrictEqual(rem, parsed.remain)
   })
-  t.end()
 })
 
-t.test('argv toString()', t => {
+test('argv toString()', () => {
   const parsed = nopt({ key: String }, {}, ['--key', 'myvalue'], 0)
-  t.same(parsed.argv.toString(), '"--key" "myvalue"')
-  t.end()
+  assert.deepStrictEqual(parsed.argv.toString(), '"--key" "myvalue"')
 })
 
-t.test('custom invalidHandler', t => {
-  t.teardown(() => {
+test('custom invalidHandler', t => {
+  t.after(() => {
     delete nopt.invalidHandler
   })
   nopt.invalidHandler = (k, v) => {
-    t.match(k, 'key')
-    t.match(v, 'nope')
-    t.end()
+    assert.strictEqual(k, 'key')
+    assert.strictEqual(v, 'nope')
   }
   nopt({ key: Number }, {}, ['--key', 'nope'], 0)
 })
 
-t.test('custom unknownHandler string', t => {
-  t.teardown(() => {
+test('custom unknownHandler string', t => {
+  t.after(() => {
     delete nopt.unknownHandler
   })
   nopt.unknownHandler = (k, next) => {
-    t.match(k, 'x')
-    t.match(next, 'null')
-    t.end()
+    assert.strictEqual(k, 'x')
+    assert.strictEqual(next, 'null')
   }
   nopt({}, {}, ['--x', 'null'], 0)
 })
 
-t.test('custom unknownHandler boolean', t => {
-  t.teardown(() => {
+test('custom unknownHandler boolean', t => {
+  t.after(() => {
     delete nopt.unknownHandler
   })
   nopt.unknownHandler = (k, next) => {
-    t.match(k, 'x')
-    t.match(next, undefined)
-    t.end()
+    assert.strictEqual(k, 'x')
+    assert.strictEqual(next, undefined)
   }
   nopt({}, {}, ['--x', 'false'], 0)
 })
 
-t.test('custom normal abbrevHandler', t => {
-  t.teardown(() => {
+test('custom normal abbrevHandler', t => {
+  t.after(() => {
     delete nopt.abbrevHandler
   })
   nopt.abbrevHandler = (short, long) => {
-    t.match(short, 'shor')
-    t.match(long, 'shorthand')
-    t.end()
+    assert.match(short, /shor/)
+    assert.match(long, /shorthand/)
   }
   nopt({ shorthand: Boolean }, {}, ['--short', 'true'], 0)
 })
 
-t.test('custom shorthand abbrevHandler', t => {
-  t.teardown(() => {
+test('custom shorthand abbrevHandler', t => {
+  t.after(() => {
     delete nopt.abbrevHandler
   })
   nopt.abbrevHandler = (short, long) => {
-    t.match(short, 'shor')
-    t.match(long, 'shorthand')
-    t.end()
+    assert.match(short, /shor/)
+    assert.match(long, /shorthand/)
   }
   nopt({
     longhand: Boolean,
@@ -397,46 +379,39 @@ t.test('custom shorthand abbrevHandler', t => {
   ['--short', 'true'], 0)
 })
 
-t.test('numbered boolean', t => {
+test('numbered boolean', () => {
   const parsed = nopt({ key: [Boolean, String] }, {}, ['--key', '0'], 0)
-  t.same(parsed.key, false)
-  t.end()
+  assert.deepStrictEqual(parsed.key, false)
 })
 
-t.test('false string boolean', t => {
+test('false string boolean', () => {
   const parsed = nopt({ key: [Boolean, String] }, {}, ['--key', 'false'], 0)
-  t.same(parsed.key, false)
-  t.end()
+  assert.deepStrictEqual(parsed.key, false)
 })
 
-t.test('true string boolean', t => {
+test('true string boolean', () => {
   const parsed = nopt({ key: [Boolean, String] }, {}, ['--key', 'true'], 0)
-  t.same(parsed.key, true)
-  t.end()
+  assert.deepStrictEqual(parsed.key, true)
 })
 
-t.test('null string boolean', t => {
+test('null string boolean', () => {
   const parsed = nopt({ key: [Boolean, String] }, {}, ['--key', 'null'], 0)
-  t.same(parsed.key, false)
-  t.end()
+  assert.deepStrictEqual(parsed.key, false)
 })
 
-t.test('other string boolean', t => {
+test('other string boolean', () => {
   const parsed = nopt({ key: [Boolean, String] }, {}, ['--key', 'yes'], 0)
-  t.same(parsed.key, true)
-  t.end()
+  assert.deepStrictEqual(parsed.key, true)
 })
 
-t.test('number boolean', t => {
+test('number boolean', () => {
   const parsed = nopt({ key: [Boolean, Number] }, {}, ['--key', '100'], 0)
-  t.same(parsed.key, true)
-  t.end()
+  assert.deepStrictEqual(parsed.key, true)
 })
 
-t.test('no args', (t) => {
+test('no args', (t) => {
   const _argv = process.argv
-  t.teardown(() => process.argv = _argv)
+  t.after(() => process.argv = _argv)
   process.argv = ['', '', 'a']
-  t.strictSame(nopt(), { argv: { remain: ['a'], cooked: ['a'], original: ['a'] } })
-  t.end()
+  assert.deepStrictEqual(nopt(), { argv: { remain: ['a'], cooked: ['a'], original: ['a'] } })
 })
