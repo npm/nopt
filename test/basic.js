@@ -97,7 +97,6 @@ test('clean: no types does not throw', () => {
 test('other tests', () => {
   const Stream = require('stream')
   const path = require('path')
-  const url = require('url')
 
   const shorthands =
       { s: ['--loglevel', 'silent'],
@@ -145,16 +144,16 @@ test('other tests', () => {
         loglevel: ['silent', 'win', 'error', 'warn', 'info', 'verbose', 'silly'],
         long: Boolean,
         'node-version': [false, String],
-        npaturl: url,
+        npaturl: URL,
         npat: Boolean,
         'onload-script': [false, String],
         outfd: [Number, Stream],
         parseable: Boolean,
         pre: Boolean,
         prefix: path,
-        proxy: url,
+        proxy: URL,
         'rebuild-bundle': Boolean,
-        registry: url,
+        registry: URL,
         searchopts: String,
         searchexclude: [null, String],
         shell: path,
