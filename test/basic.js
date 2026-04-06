@@ -2,6 +2,7 @@ const nopt = require('../')
 const { test } = require('node:test')
 const assert = require('node:assert')
 const isWin = process.platform === 'win32'
+const { URL } = require('url')
 
 test('empty array is fine if type includes Array', () => {
   const types = {
@@ -97,83 +98,82 @@ test('clean: no types does not throw', () => {
 test('other tests', () => {
   const Stream = require('stream')
   const path = require('path')
-  const url = require('url')
+  const shorthands = {
+    s: ['--loglevel', 'silent'],
+    d: ['--loglevel', 'info'],
+    dd: ['--loglevel', 'verbose'],
+    ddd: ['--loglevel', 'silly'],
+    noreg: ['--no-registry'],
+    reg: ['--registry'],
+    'no-reg': ['--no-registry'],
+    silent: ['--loglevel', 'silent'],
+    verbose: ['--loglevel', 'verbose'],
+    h: ['--usage'],
+    H: ['--usage'],
+    '?': ['--usage'],
+    help: ['--usage'],
+    v: ['--version'],
+    f: ['--force'],
+    desc: ['--description'],
+    'no-desc': ['--no-description'],
+    local: ['--no-global'],
+    l: ['--long'],
+    p: ['--parseable'],
+    porcelain: ['--parseable'],
+    g: ['--global'],
+  }
 
-  const shorthands =
-      { s: ['--loglevel', 'silent'],
-        d: ['--loglevel', 'info'],
-        dd: ['--loglevel', 'verbose'],
-        ddd: ['--loglevel', 'silly'],
-        noreg: ['--no-registry'],
-        reg: ['--registry'],
-        'no-reg': ['--no-registry'],
-        silent: ['--loglevel', 'silent'],
-        verbose: ['--loglevel', 'verbose'],
-        h: ['--usage'],
-        H: ['--usage'],
-        '?': ['--usage'],
-        help: ['--usage'],
-        v: ['--version'],
-        f: ['--force'],
-        desc: ['--description'],
-        'no-desc': ['--no-description'],
-        local: ['--no-global'],
-        l: ['--long'],
-        p: ['--parseable'],
-        porcelain: ['--parseable'],
-        g: ['--global'],
-      }
+  const types = {
+    aoa: Array,
+    nullstream: [null, Stream],
+    date: Date,
+    str: String,
+    browser: String,
+    cache: path,
+    color: ['always', Boolean],
+    depth: Number,
+    description: Boolean,
+    dev: Boolean,
+    editor: path,
+    force: Boolean,
+    global: Boolean,
+    globalconfig: path,
+    group: [String, Number],
+    gzipbin: String,
+    logfd: [Number, Stream],
+    loglevel: ['silent', 'win', 'error', 'warn', 'info', 'verbose', 'silly'],
+    long: Boolean,
+    'node-version': [false, String],
+    npaturl: URL,
+    npat: Boolean,
+    'onload-script': [false, String],
+    outfd: [Number, Stream],
+    parseable: Boolean,
+    pre: Boolean,
+    prefix: path,
+    proxy: URL,
+    'rebuild-bundle': Boolean,
+    registry: URL,
+    searchopts: String,
+    searchexclude: [null, String],
+    shell: path,
+    t: [Array, String],
+    tag: String,
+    tar: String,
+    tmp: path,
+    'unsafe-perm': Boolean,
+    usage: Boolean,
+    user: String,
+    username: String,
+    userconfig: path,
+    version: Boolean,
+    viewer: path,
+    _exit: Boolean,
+    path: path,
+  }
 
-  const types =
-      { aoa: Array,
-        nullstream: [null, Stream],
-        date: Date,
-        str: String,
-        browser: String,
-        cache: path,
-        color: ['always', Boolean],
-        depth: Number,
-        description: Boolean,
-        dev: Boolean,
-        editor: path,
-        force: Boolean,
-        global: Boolean,
-        globalconfig: path,
-        group: [String, Number],
-        gzipbin: String,
-        logfd: [Number, Stream],
-        loglevel: ['silent', 'win', 'error', 'warn', 'info', 'verbose', 'silly'],
-        long: Boolean,
-        'node-version': [false, String],
-        npaturl: url,
-        npat: Boolean,
-        'onload-script': [false, String],
-        outfd: [Number, Stream],
-        parseable: Boolean,
-        pre: Boolean,
-        prefix: path,
-        proxy: url,
-        'rebuild-bundle': Boolean,
-        registry: url,
-        searchopts: String,
-        searchexclude: [null, String],
-        shell: path,
-        t: [Array, String],
-        tag: String,
-        tar: String,
-        tmp: path,
-        'unsafe-perm': Boolean,
-        usage: Boolean,
-        user: String,
-        username: String,
-        userconfig: path,
-        version: Boolean,
-        viewer: path,
-        _exit: Boolean,
-        path: path,
-      }
-
-  ; [['-v', { version: true }, []],
+  const paramsToTest = [
+    ['-v', { version: true }, []],
     ['---v', { version: true }, []],
     ['ls -s --no-reg connect -d',
       { loglevel: 'info', registry: null }, ['ls', 'connect']],
@@ -296,7 +296,8 @@ test('other tests', () => {
     ['--path .',
       { path: process.cwd() },
       []],
-  ].forEach(function (params) {
+  ]
+  for (const params of paramsToTest) {
     const argv = params[0].split(/\s+/)
     const opts = params[1]
     const rem = params[2]
@@ -313,7 +314,7 @@ test('other tests', () => {
       }
     }
     assert.deepStrictEqual(rem, parsed.remain)
-  })
+  }
 })
 
 test('argv toString()', () => {
