@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@npmcli/eslint-config": "^6.0.0",
-    "@npmcli/template-oss": "4.28.1"
+    "@npmcli/template-oss": "4.30.0"
   },
   "files": [
     "bin/",
@@ -41,7 +41,7 @@
   "templateOSS": {
     "//@npmcli/template-oss": "This file is partially managed by @npmcli/template-oss. Edits may be overwritten.",
     "windowsCI": false,
-    "version": "4.28.1",
+    "version": "4.30.0",
     "publish": true,
     "testRunner": "node:test",
     "latestCiVersion": 24
