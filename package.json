@@ -44,6 +44,7 @@
     "version": "4.30.0",
     "publish": true,
     "testRunner": "node:test",
-    "latestCiVersion": 24
+    "latestCiVersion": 24,
+    "updateNpm": false
   }
 }
