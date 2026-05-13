@@ -34,8 +34,8 @@ jobs:
         uses: actions/setup-node@v6
         id: node
         with:
-          node-version: 24.x
-          check-latest: contains('24.x', '.x')
+          node-version: 26.x
+          check-latest: contains('26.x', '.x')
       - name: Install Dependencies
         run: npm i --ignore-scripts --no-audit --no-fund
       - name: Lint
@@ -60,22 +60,25 @@ jobs:
             os: macos-15-intel
             shell: bash
         node-version:
-          - 20.17.0
-          - 20.x
-          - 22.9.0
+          - 22.22.2
           - 22.x
+          - 24.15.0
           - 24.x
+          - 26.0.0
+          - 26.x
         exclude:
           - platform: { name: macOS, os: macos-15-intel, shell: bash }
-            node-version: 20.17.0
-          - platform: { name: macOS, os: macos-15-intel, shell: bash }
-            node-version: 20.x
-          - platform: { name: macOS, os: macos-15-intel, shell: bash }
-            node-version: 22.9.0
+            node-version: 22.22.2
           - platform: { name: macOS, os: macos-15-intel, shell: bash }
             node-version: 22.x
           - platform: { name: macOS, os: macos-15-intel, shell: bash }
+            node-version: 24.15.0
+          - platform: { name: macOS, os: macos-15-intel, shell: bash }
             node-version: 24.x
+          - platform: { name: macOS, os: macos-15-intel, shell: bash }
+            node-version: 26.0.0
+          - platform: { name: macOS, os: macos-15-intel, shell: bash }
+            node-version: 26.x
     runs-on: ${{ matrix.platform.os }}
     defaults:
       run:

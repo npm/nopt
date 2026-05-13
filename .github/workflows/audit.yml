@@ -30,8 +30,8 @@ jobs:
         uses: actions/setup-node@v6
         id: node
         with:
-          node-version: 24.x
-          check-latest: contains('24.x', '.x')
+          node-version: 26.x
+          check-latest: contains('26.x', '.x')
       - name: Install Dependencies
         run: npm i --ignore-scripts --no-audit --no-fund --package-lock
       - name: Run Production Audit
