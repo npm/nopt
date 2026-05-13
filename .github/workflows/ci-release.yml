@@ -32,7 +32,7 @@ jobs:
         shell: bash
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ inputs.ref }}
       - name: Setup Git User
@@ -48,7 +48,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           sha: ${{ inputs.check-sha }}
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         id: node
         with:
           node-version: 24.x
@@ -106,7 +106,7 @@ jobs:
         shell: ${{ matrix.platform.shell }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ inputs.ref }}
       - name: Setup Git User
@@ -122,7 +122,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           sha: ${{ inputs.check-sha }}
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         id: node
         with:
           node-version: ${{ matrix.node-version }}
@@ -132,11 +132,8 @@ jobs:
       - name: Test (with coverage on Node >= 24)
         if: ${{ startsWith(matrix.node-version, '24') }}
         run: npm run test:cover --ignore-scripts
-      - name: Test (on Node 20 with globbing workaround)
-        if: ${{ startsWith(matrix.node-version, '20') }}
-        run: npm run test:node20 --ignore-scripts
-      - name: Test
-        if: ${{ !startsWith(matrix.node-version, '24') && !startsWith(matrix.node-version, '20') }}
+      - name: Test (without coverage on Node < 24)
+        if: ${{ !startsWith(matrix.node-version, '24') }}
         run: npm test --ignore-scripts
       - name: Conclude Check
         uses: LouisBrunner/checks-action@v1.6.0
