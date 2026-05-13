@@ -25,7 +25,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "abbrev": "^4.0.0"
+    "abbrev": "^5.0.0"
   },
   "devDependencies": {
     "@npmcli/eslint-config": "^6.0.0",
