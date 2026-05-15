@@ -1,5 +1,30 @@
 # Changelog
 
+## [10.0.0](https://github.com/npm/nopt/compare/v9.0.0...v10.0.0) (2026-05-15)
+### ⚠️ BREAKING CHANGES
+* `nopt` now supports node `^22.22.2 || ^24.15.0 || >=26.0.0`
+* template-oss-apply
+* debug console.error output has been removed
+* this package now uses URL.parse, as the original url.parse was deprecated.
+### Features
+* [`82f9997`](https://github.com/npm/nopt/commit/82f99976df9596723685bb26e6aaea41e8d7e64a) [#203](https://github.com/npm/nopt/pull/203) bump to new node engine range (@owlstronaut)
+* [`774a6d7`](https://github.com/npm/nopt/commit/774a6d70a74a81f9a2d83bca74e09cfffa616112) [#203](https://github.com/npm/nopt/pull/203) template-oss-apply (@owlstronaut)
+* [`a2d43e4`](https://github.com/npm/nopt/commit/a2d43e40fe1d7b797153df9ff1271ad9eb83c266) [#197](https://github.com/npm/nopt/pull/197) remove debug statements (@wraithgar)
+* [`d193a6d`](https://github.com/npm/nopt/commit/d193a6d369a7c5e679eb2edf3260dc677428bdb0) [#197](https://github.com/npm/nopt/pull/197) stop using url.parse (@wraithgar)
+### Bug Fixes
+* [`2d96ef5`](https://github.com/npm/nopt/commit/2d96ef5f57c0681a2624d86c23289a2090408478) [#197](https://github.com/npm/nopt/pull/197) inline comments (@wraithgar)
+### Dependencies
+* [`f1ef490`](https://github.com/npm/nopt/commit/f1ef490a8e952cdf0f015023ad5370ba5d04e203) [#203](https://github.com/npm/nopt/pull/203) `abbrev@5.0.0`
+### Chores
+* [`bc72a32`](https://github.com/npm/nopt/commit/bc72a32b72945d9babe5eae94903203c45c22d3a) [#203](https://github.com/npm/nopt/pull/203) template-oss-apply (@owlstronaut)
+* [`149a32d`](https://github.com/npm/nopt/commit/149a32d64899c390052cb93cf75c16d06337e795) [#203](https://github.com/npm/nopt/pull/203) bumping @npmcli/template-oss from 4.30.0 to 5.1.0 (@owlstronaut)
+* [`a146975`](https://github.com/npm/nopt/commit/a1469758670e85e47c1fc4fac092e08fd75fbe17) [#197](https://github.com/npm/nopt/pull/197) updateNpm: false (@wraithgar)
+* [`b71e5d3`](https://github.com/npm/nopt/commit/b71e5d3a8ed8612291d93aa400e34f94719f44be) [#197](https://github.com/npm/nopt/pull/197) `@npmcli/template-oss@4.30.0` (@wraithgar)
+* [`e43345c`](https://github.com/npm/nopt/commit/e43345c8b7a085d43dcc05e085d0ea3c868a0f59) [#194](https://github.com/npm/nopt/pull/194) remove tap (@owlstronaut)
+* [`614645a`](https://github.com/npm/nopt/commit/614645aafe3a5b77c058f6e239ebc4ccc3621a89) [#194](https://github.com/npm/nopt/pull/194) swap from tap to built-in node:test (@owlstronaut)
+* [`84fc8f8`](https://github.com/npm/nopt/commit/84fc8f871e277ce1a312297b7489cf6335df29e7) [#191](https://github.com/npm/nopt/pull/191) bump @npmcli/eslint-config from 5.1.0 to 6.0.0 (#191) (@dependabot[bot])
+* [`38f4302`](https://github.com/npm/nopt/commit/38f4302cb5f8a71b0c05256e6b82fd019ccae177) [#193](https://github.com/npm/nopt/pull/193) bump @npmcli/template-oss from 4.28.0 to 4.28.1 (#193) (@dependabot[bot], @npm-cli-bot)
+
 ## [9.0.0](https://github.com/npm/nopt/compare/v8.1.0...v9.0.0) (2025-10-22)
 ### ⚠️ BREAKING CHANGES
 * `nopt` now supports node `^20.17.0 || >=22.9.0`
