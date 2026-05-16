@@ -141,8 +141,6 @@ config object and remove its invalid properties.
 
 ## Error Handling
 
-By default nopt logs debug messages if `DEBUG_NOPT` or `NOPT_DEBUG` are set in the environment.
-
 You can assign the following methods to `nopt` for a more granular notification of invalid, unknown, and expanding options:
 
 `nopt.invalidHandler(key, value, type, data)` - Called when a value is invalid for its option.
