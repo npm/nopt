@@ -28,7 +28,7 @@
     "abbrev": "^5.0.0"
   },
   "devDependencies": {
-    "@npmcli/eslint-config": "^6.0.0",
+    "@npmcli/eslint-config": "^7.0.0",
     "@npmcli/template-oss": "5.1.0"
   },
   "files": [
