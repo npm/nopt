@@ -147,8 +147,6 @@ You can assign the following methods to `nopt` for a more granular notification 
 `nopt.unknownHandler(key, next)` - Called when an option is found that has no configuration.  In certain situations the next option on the command line will be parsed on its own instead of as part of the unknown option. In this case `next` will contain that option.
 `nopt.abbrevHandler(short, long)` - Called when an option is automatically translated via abbreviations.
 
-You can also set any of these to `false` to disable the debugging messages that they generate.
-
 ## Abbreviations
 
 Yes, they are supported.  If you define options like this:
