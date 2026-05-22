@@ -141,15 +141,11 @@ config object and remove its invalid properties.
 
 ## Error Handling
 
-By default nopt logs debug messages if `DEBUG_NOPT` or `NOPT_DEBUG` are set in the environment.
-
 You can assign the following methods to `nopt` for a more granular notification of invalid, unknown, and expanding options:
 
 `nopt.invalidHandler(key, value, type, data)` - Called when a value is invalid for its option.
 `nopt.unknownHandler(key, next)` - Called when an option is found that has no configuration.  In certain situations the next option on the command line will be parsed on its own instead of as part of the unknown option. In this case `next` will contain that option.
 `nopt.abbrevHandler(short, long)` - Called when an option is automatically translated via abbreviations.
-
-You can also set any of these to `false` to disable the debugging messages that they generate.
 
 ## Abbreviations
 
