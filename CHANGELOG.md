@@ -1,5 +1,11 @@
 # Changelog
 
+## [10.0.1](https://github.com/npm/nopt/compare/v10.0.0...v10.0.1) (2026-06-04)
+### Documentation
+* [`103a413`](https://github.com/npm/nopt/commit/103a413e64e99178b84f623676c7dabbc7b418e2) [#205](https://github.com/npm/nopt/pull/205) remove stale debug env references (#205) (@Kushagra963-lab, @giangnthph4635)
+### Chores
+* [`b02073f`](https://github.com/npm/nopt/commit/b02073f2748e8df18ecfd2dd5c187a0dde9d94e6) [#204](https://github.com/npm/nopt/pull/204) bump @npmcli/eslint-config from 6.0.1 to 7.0.0 (#204) (@dependabot[bot])
+
 ## [10.0.0](https://github.com/npm/nopt/compare/v9.0.0...v10.0.0) (2026-05-15)
 ### ⚠️ BREAKING CHANGES
 * `nopt` now supports node `^22.22.2 || ^24.15.0 || >=26.0.0`
