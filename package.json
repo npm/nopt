@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@npmcli/eslint-config": "^7.0.0",
-    "@npmcli/template-oss": "5.1.0"
+    "@npmcli/template-oss": "5.1.1"
   },
   "files": [
     "bin/",
