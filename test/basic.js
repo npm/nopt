@@ -84,6 +84,14 @@ test('Types passed without a name are not parsed', () => {
   assert.strictEqual(Object.keys(parsed).length, 1)
 })
 
+test('Object.prototype flag names are treated as unknown, not inherited props', () => {
+  for (const name of ['toString', 'valueOf', 'hasOwnProperty', 'isPrototypeOf', 'constructor']) {
+    const parsed = nopt({}, {}, [`--${name}`, 'x'], 0)
+    assert.strictEqual(parsed[name], true)
+    assert.deepStrictEqual(parsed.argv.remain, ['x'])
+  }
+})
+
 test('no types does not throw', () => {
   const parsed = nopt(null, null, ['--leave-as-is=1.20'], 0)
   assert.strictEqual(parsed['leave-as-is'], '1.20')
