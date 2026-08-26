@@ -18,3 +18,8 @@ test('basic', () => {
   assertShort('--package-lock', null)
   assertShort('--pa', null)
 })
+
+test('does not resolve inherited Object.prototype names as shorthands', () => {
+  assert.strictEqual(nopt.resolveShort('--toString', { shorthands: {}, types: {} }), undefined)
+  assert.strictEqual(nopt.resolveShort('--hasOwnProperty', { shorthands: {}, types: {} }), undefined)
+})
