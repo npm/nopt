@@ -33,6 +33,14 @@ test('no/missing options', () => {
   assert.doesNotThrow(() => noptLib.resolveShort('', {}, {}, {}))
 })
 
+test('prototype names are not treated as shorthands', () => {
+  for (const name of ['toString', 'valueOf', 'hasOwnProperty', 'isPrototypeOf']) {
+    const parsed = noptLib.nopt([`--${name}`, 'value'])
+    assert.strictEqual(parsed[name], 'value')
+    assert.ok(Object.prototype.hasOwnProperty.call(parsed, name))
+  }
+})
+
 test('key argv is ignored', (t) => {
   nopt(t, ['--argvv', '--argv'], {}, {
     argvv: true,
